@@ -1,9 +1,13 @@
-Word Counter:
+IOState:
 	- Arguments
 		1. No argument
-		2. Too many arguments (more than 1)
+		2. Too few arguments
+		3. Too many arguments
 	- Input File
 		1. File not exists
+
+Word Counter:
+	
 	- Counting
 		1. No word
 		2. One word, no white spaces
@@ -11,11 +15,6 @@ Word Counter:
 		4. More words, some white spaces
 
 Word Frequency Counter:
-	- Arguments
-		1. No argument
-		2. Too many arguments (more than 1)
-	- Input File
-		1. File not exists
 	- Counting
 		1. No word
 		2. One word one time
@@ -26,16 +25,22 @@ Word Frequency Counter:
 		7. Same "words", one with non alphabet char
 
 Word Paragraph Counter:
-	- Arguments
-		1. No argument
-		2. Wrong count of arguments (!= 3)
-	- Input File
-		1. File not exists
 	- Counting
 		1. No word
-		2. One word one time
-		3. One word more times
-		4. More words one time
-		5. More words more times
-		6. Same words, different CAPS
-		7. Same "words", one with non alphabet char
+		2. One word, no new lines
+		3. One word, new lines before
+		4. One word, new lines before and after
+		5. More words, no new lines
+		6. More words, new lines before, between and after
+
+Table Column Summator:
+	- Format
+		1. New Lines Appear
+		2. Last row end with new line
+		3. Rows are not the same length
+		4. File is empty
+		5. Given column doesn't exist
+		6. Value in column overflow int
+	- Counting
+		1. Correct input
+

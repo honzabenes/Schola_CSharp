@@ -18,7 +18,7 @@
             TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
-            Executor.ProcessAllWords(tReader, wordCounter);
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
             string? output = sw.ToString().Trim();
 
             // Assert
@@ -39,7 +39,7 @@
             TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
-            Executor.ProcessAllWords(tReader, wordCounter);
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
             string? output = sw.ToString().Trim();
 
             // Assert
@@ -65,7 +65,7 @@
             TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
-            Executor.ProcessAllWords(tReader, wordCounter);
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
             string? output = sw.ToString().Trim();
 
             // Assert
@@ -93,7 +93,7 @@
             TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
-            Executor.ProcessAllWords(tReader, wordCounter);
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
             string? output = sw.ToString().Trim();
 
             // Assert
