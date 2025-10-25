@@ -4,84 +4,78 @@ namespace TextProcessing
 {
     public class TokenReaderByChars : TokenReader
     {
-        // Sometimes I need to process more than one Token at the same time, that's the reason of this q.
-        private Queue<Token> TokenQueue = new();
         private char[] Separators { get; init; }
         private int NewLineStreak { get; set; } = 2;
 
-        public TokenReaderByChars(TextReader reader, params char[] separators) 
-            : base(reader) 
-        { 
+        public TokenReaderByChars(TextReader reader, params char[] separators)
+            : base(reader)
+        {
             Separators = separators;
-        }
-
-
-        private char? ReadChar()
-        {
-            int chValue = _reader.Read();
-
-            if (chValue == -1)
-            {
-                return null;
-            }
-
-            char ch = (char)chValue;
-
-            return ch;
-        }
-
-
-        private void EnqueueToken()
-        {
-            string word = "";
-            char? ch;
-
-            while ((ch = ReadChar()) is not null)
-            {
-                if (!Separators.Contains((char)ch))
-                {
-                    word += ch;
-
-                    if (NewLineStreak >= 2)
-                    {
-                        TokenQueue.Enqueue(new Token(TypeToken.EoP));
-                    }
-                    NewLineStreak = 0;
-                }
-                else
-                {
-                    if (word.Length > 0)
-                    {
-                        TokenQueue.Enqueue(new Token(word));
-                        word = "";
-                    }
-                    if (ch == '\n')
-                    {
-                        NewLineStreak++;
-
-                        TokenQueue.Enqueue(new Token(TypeToken.EoL));
-                    }
-                }
-            }
-
-            if (word.Length > 0)
-            {
-                TokenQueue.Enqueue(new Token(word));
-            }
-
-            TokenQueue.Enqueue(new Token(TypeToken.EoF));
         }
 
 
         public override Token ReadToken()
         {
-            if (TokenQueue.Count > 0)
-            {
-                return TokenQueue.Dequeue();
-            }
-            else EnqueueToken();
+            int peekChar;
 
-            return TokenQueue.Dequeue();
+            while ((peekChar = _reader.Peek()) != -1)
+            {
+                char ch = (char)peekChar;
+
+                // New line found, need to be tokenized
+                if (ch == '\n')
+                {
+                    break;
+                }
+
+                // White character found, need to be skipped
+                if (Separators.Contains(ch))
+                {
+                    _reader.Read();
+                }
+
+                // Non white character found, means beginning of the new word, need to be tokenized
+                else
+                {
+                    break;
+                }
+            }
+
+            // Tokenize if we ended at the end of input
+            if (peekChar == -1)
+            {
+                return new Token(TypeToken.EoI);
+            }
+
+            char currentChar = (char)peekChar;
+
+            // Move the cursor and tokenize if we ended at new line
+            if (currentChar == '\n')
+            {
+                _reader.Read();
+                return new Token(TypeToken.EoL);
+            }
+
+            // Read and tokenize word if we ended at non-white character
+            var wordBuilder = new StringBuilder();
+
+            while ((peekChar = _reader.Peek()) != -1)
+            {
+                char ch = (char)peekChar;
+
+                if (Separators.Contains(ch))
+                {
+                    break;
+                }
+
+                wordBuilder.Append(ch);
+
+                _reader.Read();
+            }
+
+            string word = wordBuilder.ToString();
+
+            return new Token(word);
         }
     }
 }
