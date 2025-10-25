@@ -35,7 +35,7 @@ namespace TextProcessing
                     _isLastTokenNewLine = false;
                     if (_currentRow == 0)
                     {
-                        if (_sumColumnName == token.Word)
+                        if (_sumColumnNumber == null && _sumColumnName == token.Word)
                         {
                             _sumColumnNumber = _currentColumn;
                         }

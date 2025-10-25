@@ -210,5 +210,38 @@ namespace TextProcessing_Tests
 
             Assert.Equal(expected, output);
         }
+
+
+        [Fact]
+        public void CorrectInputWithMulitpleSameColumnTitles()
+        {
+            // Arrange
+            string input = """
+                Groceries   Price   Discount   ActualPrice   Price
+                Apple       5       20         4             12
+                Pear        10      10         9             80
+                Orange      16      25         12            20
+                """;
+
+            var sw = new StringWriter();
+            var sr = new StringReader(input);
+
+            ITokenProcessor wordCounter = new TableSummator(sw, "Price");
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+
+            // Act
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
+            string? output = sw.ToString().Trim();
+
+            // Assert
+            var sb = new StringBuilder();
+            sb.AppendLine("Price");
+            sb.AppendLine("-----");
+            sb.AppendLine("31");
+
+            string expected = sb.ToString().Trim();
+
+            Assert.Equal(expected, output);
+        }
     }
 }
