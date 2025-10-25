@@ -2,9 +2,6 @@
 {
     public class WordCounter_Tests
     {
-        public char[] WHITE_SPACES = { '\t', ' ', '\r', '\n' };
-
-
         [Fact]
         public void NoWord()
         {
@@ -18,7 +15,7 @@
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new WordCounter(sw);
-            TokenReader tReader = new TokenReaderByChars(sr, WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter);
@@ -39,7 +36,7 @@
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new WordCounter(sw);
-            TokenReader tReader = new TokenReaderByChars(sr, WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter);
@@ -65,7 +62,7 @@
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new WordCounter(sw);
-            TokenReader tReader = new TokenReaderByChars(sr, WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter);
@@ -93,7 +90,7 @@
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new WordCounter(sw);
-            TokenReader tReader = new TokenReaderByChars(sr, WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter);
