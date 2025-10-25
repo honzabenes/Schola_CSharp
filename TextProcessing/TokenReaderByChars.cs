@@ -6,8 +6,8 @@ namespace TextProcessing
     {
         private int NewLineStreak { get; set; } = 2;
 
-        public TokenReaderByChars(TextReader reader, params char[] separators)
-            : base(reader, separators) { }
+        public TokenReaderByChars(TextReader reader, params char[] whiteSpaces)
+            : base(reader, whiteSpaces) { }
 
 
         public override Token ReadToken()
@@ -25,7 +25,7 @@ namespace TextProcessing
                 }
 
                 // White character found, need to be skipped
-                if (_separators.Contains(ch))
+                if (_whiteSpaces.Contains(ch))
                 {
                     _reader.Read();
                 }
@@ -67,7 +67,7 @@ namespace TextProcessing
             {
                 char ch = (char)peekChar;
 
-                if (_separators.Contains(ch))
+                if (_whiteSpaces.Contains(ch))
                 {
                     break;
                 }

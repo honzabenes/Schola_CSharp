@@ -6,7 +6,7 @@
         public TextReader? Reader {  get; set; }
         public TextWriter? Writer { get; set; }
         public String? ColumnName { get; private set; }
-        public char[] Separators { get; set; } = { '\t', ' ', '\r', '\n' };
+        public char[] WhiteSpaces { get; set; } = { '\t', ' ', '\r', '\n' };
 
 
         public const string FileErrorMessage = "File Error";
