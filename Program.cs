@@ -13,7 +13,7 @@
 
             var tokenReader = new TokenReaderByChars(IOState.Reader!, IOState.Separators);
 
-            ITokenProcessor paragraphWordCounter = new ParagraphWordCounter();
+            ITokenProcessor paragraphWordCounter = new WordCounter(IOState.Writer!);
 
             Executor.ProcessAllWords(tokenReader, paragraphWordCounter);
 
