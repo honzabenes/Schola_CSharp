@@ -61,7 +61,8 @@ namespace TextProcessing
                     break;
 
                 case TypeToken.EoL:
-                    if (_currentRow == 0 && _currentColumn == 0)
+
+                    if (_currentColumn == 0)
                     {
                         throw new InvalidInputFormatException(EmptyLineInTableErrorMessage);
                     }
