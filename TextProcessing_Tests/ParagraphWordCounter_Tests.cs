@@ -78,6 +78,10 @@ namespace TextProcessing_Tests
             // Arrange.
             string input = """
 
+
+
+
+
                     Hello
 
 
@@ -125,6 +129,8 @@ namespace TextProcessing_Tests
             // Arrange.
             string input = """
 
+
+
                 Hello world.
 
                     What a nice day.
@@ -162,6 +168,8 @@ namespace TextProcessing_Tests
             // Arrange.
             string input = """
                 
+
+
                 Lorem ipsum dolor sit amet, consectetuer
                 adipiscing elit. Duis bibendum, lectus ut viverra rhoncus,
                 dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. Phasellus rhoncus. 

@@ -318,5 +318,35 @@ namespace TextProcessing_Tests
 
             Assert.Equal(expected, output);
         }
+
+
+        [Fact]
+        public void OnlyHeaderInTable()
+        {
+            // Arrange
+            string input = """
+                Groceries   Price   Discount   ActualPrice   Price
+                """;
+
+            var sw = new StringWriter();
+            var sr = new StringReader(input);
+
+            ITokenProcessor wordCounter = new TableSummator(sw, "Price");
+            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+
+            // Act
+            Executor.ProcessAllWords(tReader, wordCounter, sw);
+            string? output = sw.ToString().Trim();
+
+            // Assert
+            var sb = new StringBuilder();
+            sb.AppendLine("Price");
+            sb.AppendLine("-----");
+            sb.AppendLine("0");
+
+            string expected = sb.ToString().Trim();
+
+            Assert.Equal(expected, output);
+        }
     }
 }
