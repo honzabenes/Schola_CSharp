@@ -4,7 +4,8 @@ namespace TextProcessing
 {
     public class TokenReaderByChars : TokenReader
     {
-        private int NewLineStreak { get; set; } = 2;
+        private int _newLineStreak { get; set; } = 0;
+        private bool _wordFound { get; set; } = false;
 
         public TokenReaderByChars(TextReader reader, params char[] whiteSpaces)
             : base(reader, whiteSpaces) { }
@@ -48,15 +49,20 @@ namespace TextProcessing
             // Move the cursor and tokenize if we ended at new line
             if (currentChar == '\n')
             {
-                NewLineStreak++;
+                // If we have already found some paragraph
+                if (_wordFound)
+                {
+                    _newLineStreak++;
+                }
+
                 _reader.Read();
                 return new Token(TypeToken.EoL);
             }
 
             // Tokenize end of paragraph, if we found a new one
-            if (NewLineStreak >= 2)
+            if (_newLineStreak >= 2)
             {
-                NewLineStreak = 0;
+                _newLineStreak = 0;
                 return new Token(TypeToken.EoP);
             }
 
@@ -79,7 +85,9 @@ namespace TextProcessing
 
             string word = wordBuilder.ToString();
 
-            NewLineStreak = 0;
+            _newLineStreak = 0;
+
+            _wordFound = true;
             return new Token(word);
         }
     }

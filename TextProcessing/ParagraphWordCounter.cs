@@ -18,13 +18,13 @@
             switch (token.Type)
             {
                 case TypeToken.Word:
-                    if (ParagraphWordCounts.Count < CurrentParagraph)
+                    if (ParagraphWordCounts.Count <= CurrentParagraph)
                     {
                         ParagraphWordCounts.Add(1);
                     }
                     else
                     {
-                        ParagraphWordCounts[CurrentParagraph - 1]++;
+                        ParagraphWordCounts[CurrentParagraph]++;
                     }
                     break;
 
@@ -34,6 +34,8 @@
 
                 case TypeToken.EoL:
                     break;
+
+                default: break;
             }
         }
 

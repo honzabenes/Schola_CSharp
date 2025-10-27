@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace TextProcessing
+﻿namespace TextProcessing
 {
     public enum TypeToken
     { 

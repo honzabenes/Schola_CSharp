@@ -6,7 +6,7 @@ namespace TextProcessing
     {
         private TextWriter _writer;
 
-        private string _sumColumnName { get; set; }
+        private string _sumColumnName { get; init; }
         private int? _sumColumnNumber { get; set; } = null;
         private int _currentRow { get; set; } = 0;
         private int _currentColumn { get; set; } = 0;
@@ -88,6 +88,8 @@ namespace TextProcessing
                         throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
                     }
                     break;
+
+                default: break;
             }
         }
 
@@ -106,7 +108,7 @@ namespace TextProcessing
 
             string output = sb.ToString();
 
-            _writer.WriteLine(output);
+            _writer.Write(output);
         }
     }
 }
