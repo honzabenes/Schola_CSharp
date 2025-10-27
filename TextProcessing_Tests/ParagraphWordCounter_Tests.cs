@@ -16,7 +16,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -37,7 +37,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -61,7 +61,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -91,7 +91,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -112,7 +112,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -145,7 +145,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
@@ -202,7 +202,7 @@ namespace TextProcessing_Tests
             var sr = new StringReader(input);
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
-            TokenReader tReader = new TokenReaderByChars(sr, Constants.WHITE_SPACES);
+            TokenReader tReader = new TokenReaderByChars(sr);
 
             // Act
             Executor.ProcessAllWords(tReader, wordCounter, sw, sw);
