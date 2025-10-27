@@ -86,8 +86,8 @@ namespace TextProcessing
             string word = wordBuilder.ToString();
 
             _newLineStreak = 0;
-
             _wordFound = true;
+
             return new Token(word);
         }
     }
