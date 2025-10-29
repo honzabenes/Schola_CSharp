@@ -7,25 +7,28 @@
             var IOState = new InputOutputState();
 
             //IOState for Word Counter, Word Frequency Counter, Paragraph Word Counter
-            //if (!IOState.InitializeReaderFromCLIArguments(args))
-            //{
-            //    return;
-            //}
-
-            //IOState for Table Summator
-            if (!IOState.InitializeReaderWriterColumnNameFromCLIArguments(args))
+            if (!IOState.InitializeReaderFromCLIArguments(args))
             {
                 return;
             }
 
-            var tokenReader = new TokenReaderByChars(IOState.Reader!, IOState.WhiteSpaces);
+            //IOState for Table Summator
+            //if (!IOState.InitializeReaderWriterColumnNameFromCLIArguments(args))
+            //{
+            //    return;
+            //}
 
-            //ITokenProcessor wordCounter = new WordCounter(IOState.Writer!);
-            //ITokenProcessor wordFreqCounter = new WordFrequencyCounter(IOState.Writer!);
-            //ITokenProcessor paragWordCounter = new ParagraphWordCounter(IOState.Writer!);
-            ITokenProcessor tableSummator = new TableSummator(IOState.Writer!, IOState.ColumnName!);
+            TokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
 
-            Executor.ProcessAllWords(tokenReader, tableSummator, Console.Out);
+            //ITokenProcessor wordCounter = new WordCounter();
+            //ITokenProcessor wordFreqCounter = new WordFrequencyCounter();
+            ITokenProcessor paragWordCounter = new ParagraphWordCounter();
+            //ITokenProcessor tableSummator = new TableSummator(IOState.ColumnName!);
+
+            //Executor.ProcessAllWords(tokenReader, wordCounter, IOState.Writer!, Console.Out);
+            //Executor.ProcessAllWords(tokenReader, wordFreqCounter, IOState.Writer!, Console.Out);
+            Executor.ProcessAllWords(tokenReader, paragWordCounter, IOState.Writer!, Console.Out);
+            //Executor.ProcessAllWords(tokenReader, tableSummator, IOState.Writer!, Console.Out);
 
 
             IOState.Dispose();

@@ -4,8 +4,6 @@ namespace TextProcessing
 {
     public class TableSummator : ITokenProcessor
     {
-        private TextWriter _writer;
-
         private string _sumColumnName { get; init; }
         private int? _sumColumnNumber { get; set; } = null;
         private int _currentRow { get; set; } = 0;
@@ -18,9 +16,8 @@ namespace TextProcessing
         public const string RowsAreNotTheSameSizeErrorMessage = "Rows are not the same size";
         public const string EmptyLineInTableErrorMessage = "Empty line in table";
 
-        public TableSummator(TextWriter writer, string columnName)
+        public TableSummator(string columnName)
         {
-            _writer = writer;
             _sumColumnName = columnName;
         }
 
@@ -30,63 +27,15 @@ namespace TextProcessing
             switch (token.Type)
             {
                 case TypeToken.Word:
-                    _currentColumn++;
-                    if (_currentRow == 0)
-                    {
-                        if (_sumColumnNumber == null && _sumColumnName == token.Word)
-                        {
-                            _sumColumnNumber = _currentColumn;
-                        }
-                        _rowSize++;
-                    }
-                    else if (_currentColumn > _rowSize)
-                    {
-                        throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
-                    }
-                    else if (_currentColumn == _sumColumnNumber)
-                    {
-                        try
-                        {
-                            ColumnSum += int.Parse(token.Word!);
-                        }
-                        catch (FormatException)
-                        {
-                            throw new NotParsableByIntException();
-                        }
-                        catch (OverflowException)
-                        {
-                            throw new NotParsableByIntException();
-                        }
-                    }
+                    ProcessWordToken(token);
                     break;
 
                 case TypeToken.EoL:
-
-                    if (_currentColumn == 0)
-                    {
-                        throw new InvalidInputFormatException(EmptyLineInTableErrorMessage);
-                    }
-                    if (_currentRow == 0 && _sumColumnNumber == null)
-                    {
-                        throw new NonExistenColumnNameInTableException();
-                    }
-                    if (_currentColumn < _rowSize)
-                    {
-                        throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
-                    }
-                    _currentRow++;
-                    _currentColumn = 0;
+                    ProcessEoLToken();
                     break;
 
                 case TypeToken.EoI:
-                    if (_currentRow == 0 && _currentColumn == 0)
-                    {
-                        throw new InvalidInputFormatException(FileIsEmptyErrorMessage);
-                    }
-                    if (_currentColumn > 0 && _currentColumn < _rowSize)
-                    {
-                        throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
-                    }
+                    ProcessEoIToken();
                     break;
 
                 default: break;
@@ -94,7 +43,72 @@ namespace TextProcessing
         }
 
 
-        public void WriteOut()
+        private void ProcessWordToken(Token token)
+        {
+            _currentColumn++;
+            if (_currentRow == 0)
+            {
+                if (_sumColumnNumber == null && _sumColumnName == token.Word)
+                {
+                    _sumColumnNumber = _currentColumn;
+                }
+                _rowSize++;
+            }
+            else if (_currentColumn > _rowSize)
+            {
+                throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
+            }
+            else if (_currentColumn == _sumColumnNumber)
+            {
+                try
+                {
+                    ColumnSum += int.Parse(token.Word!);
+                }
+                catch (FormatException)
+                {
+                    throw new NotParsableByIntException();
+                }
+                catch (OverflowException)
+                {
+                    throw new NotParsableByIntException();
+                }
+            }
+        }
+
+
+        private void ProcessEoLToken()
+        {
+            if (_currentColumn == 0)
+            {
+                throw new InvalidInputFormatException(EmptyLineInTableErrorMessage);
+            }
+            if (_currentRow == 0 && _sumColumnNumber == null)
+            {
+                throw new NonExistenColumnNameInTableException();
+            }
+            if (_currentColumn < _rowSize)
+            {
+                throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
+            }
+            _currentRow++;
+            _currentColumn = 0;
+        }
+
+
+        private void ProcessEoIToken()
+        {
+            if (_currentRow == 0 && _currentColumn == 0)
+            {
+                throw new InvalidInputFormatException(FileIsEmptyErrorMessage);
+            }
+            if (_currentColumn > 0 && _currentColumn < _rowSize)
+            {
+                throw new InvalidInputFormatException(RowsAreNotTheSameSizeErrorMessage);
+            }
+        }
+
+
+        public void WriteOut(TextWriter writer)
         {
             var sb = new StringBuilder();
 
@@ -108,7 +122,7 @@ namespace TextProcessing
 
             string output = sb.ToString();
 
-            _writer.Write(output);
+            writer.Write(output);
         }
     }
 }
