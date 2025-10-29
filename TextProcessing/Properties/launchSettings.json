@@ -1,8 +1,17 @@
 {
   "profiles": {
-    "TextProcessing": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "OneParam": {
+      "commandName": "Executable",
+      "executablePath": "C:\\ADATA\\Schola\\Schola_TextProcessing\\TextProcessing\\bin\\Debug\\net9.0\\TextProcessing.exe",
+      "commandLineArgs": "src/IO/input.txt"
+    },
+    "ThreeParams": {
       "commandName": "Project",
-      "commandLineArgs": "input.txt"
+      "commandLineArgs": "src/IO/input.txt output.txt trzba"
     }
   }
 }
