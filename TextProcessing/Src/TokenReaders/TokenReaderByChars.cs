@@ -47,7 +47,7 @@ namespace TextProcessing
             // Move the cursor and tokenize if we ended at new line
             if (currentChar == '\n')
             {
-                // If we have already found some paragraph
+                // If we have already found a paragraph
                 if (_wordFound)
                 {
                     _newLineStreak++;
