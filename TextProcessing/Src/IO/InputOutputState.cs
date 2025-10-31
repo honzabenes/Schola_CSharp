@@ -7,8 +7,8 @@
     {
         public TextReader? Reader {  get; set; }
         public TextWriter? Writer { get; set; }
-        public String? ColumnName { get; private set; }
-
+        public string? ColumnName { get; private set; }
+        public int? MaxTextWidth { get; private set; }
 
         public const string FileErrorMessage = "File Error";
         public const string ArgumentErrorMessage = "Argument Error";
@@ -16,106 +16,166 @@
 
         public bool InitializeReaderFromCLIArguments(string[] args)
         {
-            const int ARGS_COUNT = 1;
+            int ARGS_COUNT = 1;
 
-            // Check arguments
-            if (args.Length != ARGS_COUNT)
+            if (!CheckArgumentsCount(ARGS_COUNT, args))
             {
-                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
-            // Initialize Reader
-            string inputFilePath = args[0];
-            try
+            string inputFilepath = args[0];
+
+            if (!InitializeStreamReader(inputFilepath))
             {
-                Reader = new StreamReader(inputFilePath);
-            }
-            catch (IOException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (ArgumentException)
-            {
-                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
-            Writer = Console.Out;
+            InitializeWriter(Console.Out);
 
             return true;
         }
 
 
-        public bool InitializeReaderWriterColumnNameFromCLIArguments(string[] args)
+        public bool InitializeReaderWriterAndColumnNameFromCLIArguments(string[] args)
         {
-            const int ARGS_COUNT = 3;
+            int ARGS_COUNT = 3;
 
-            // Check arguments
-            if (args.Length != ARGS_COUNT)
+            if (!CheckArgumentsCount(ARGS_COUNT, args))
             {
-                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
-            // Initialize Reader
-            string inputFilePath = args[0];
-            try
+            string inputFilepath = args[0];
+
+            if (!InitializeStreamReader(inputFilepath))
             {
-                Reader = new StreamReader(inputFilePath);
-            }
-            catch (IOException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (ArgumentException)
-            {
-                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
+            string outputFilepath = args[1];
 
-            // Initialize Writer
-            string outputFilePath = args[1];
-            try
+            if (!InitializeStreamWriter(outputFilepath))
             {
-                Writer = new StreamWriter(outputFilePath);
-            }
-            catch (IOException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Console.WriteLine(FileErrorMessage);
-                return false;
-            }
-            catch (ArgumentException)
-            {
-                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
-            //Writer = Console.Out;
-
-
-            // initialize ColumnName
             ColumnName = args[2];
 
             return true;
+        }
+
+
+        public bool InitializeReaderWriterAndMaxTextWidthFromCLIArguments(string[] args)
+        {
+            int ARGS_COUNT = 3;
+
+            if (!CheckArgumentsCount(ARGS_COUNT, args))
+            {
+                return false;
+            }
+
+            string inputFilepath = args[0];
+
+            if (!InitializeStreamReader(inputFilepath))
+            {
+                return false;
+            }
+
+            string outputFilepath = args[1];
+
+            if (!InitializeStreamWriter(outputFilepath))
+            {
+                return false;
+            }
+
+            try
+            {
+                MaxTextWidth = int.Parse(args[2]);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (OverflowException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private bool CheckArgumentsCount(int expectedCount, string[] args)
+        {
+            if (args.Count() != expectedCount)
+            {
+                Console.WriteLine(ArgumentErrorMessage);
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private void InitializeReader(TextReader reader)
+        {
+            Reader = reader;
+        }
+
+
+        private bool InitializeStreamReader(string filepath)
+        {
+            try
+            {
+                Reader = new StreamReader(filepath);
+                return true;
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(FileErrorMessage);
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine(FileErrorMessage);
+                return false;
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine(ArgumentErrorMessage);
+                return false;
+            }
+        }
+
+
+        private void InitializeWriter(TextWriter writer)
+        {
+            Writer = writer;
+        }
+
+
+        private bool InitializeStreamWriter(string filepath)
+        {
+            try
+            {
+                Writer = new StreamWriter(filepath);
+                return true;
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(FileErrorMessage);
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine(FileErrorMessage);
+                return false;
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine(ArgumentErrorMessage);
+                return false;
+            }
         }
 
 

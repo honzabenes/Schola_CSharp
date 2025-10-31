@@ -6,30 +6,38 @@
         {
             var IOState = new InputOutputState();
 
-            //IOState for Word Counter, Word Frequency Counter, Paragraph Word Counter
-            if (!IOState.InitializeReaderFromCLIArguments(args))
-            {
-                return;
-            }
-
-            //IOState for Table Summator
-            //if (!IOState.InitializeReaderWriterColumnNameFromCLIArguments(args))
+            // IOState for Word Counter, Word Frequency Counter, Paragraph Word Counter
+            //if (!IOState.InitializeReaderFromCLIArguments(args))
             //{
             //    return;
             //}
 
+            // IOState for Table Summator
+            //if (!IOState.InitializeReaderWriterAndColumnNameFromCLIArguments(args))
+            //{
+            //    return;
+            //}
+
+            // IOState for Text Justifier
+            if (!IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args))
+            {
+                return;
+            }
+
+
+            // Token Reader pipeline
             ITokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
             ITokenReader tokenParagraphReader = new ParagraphDetectingTokenReaderWrapper(tokenReader); 
             ITokenReader tokenDebugPrintingReader = new DebugPrintingTokenReaderWrapper(tokenParagraphReader);   
 
             //ITokenProcessor wordCounter = new WordCounter();
             //ITokenProcessor wordFreqCounter = new WordFrequencyCounter();
-            ITokenProcessor paragWordCounter = new ParagraphWordCounter();
+            //ITokenProcessor paragWordCounter = new ParagraphWordCounter();
             //ITokenProcessor tableSummator = new TableSummator(IOState.ColumnName!);
 
             //Executor.ProcessAllWords(tokenReader, wordCounter, IOState.Writer!, Console.Out);
             //Executor.ProcessAllWosrds(tokenReader, wordFreqCounter, IOState.Writer!, Console.Out);
-            Executor.ProcessAllWords(tokenDebugPrintingReader, paragWordCounter, IOState.Writer!, Console.Out);
+            //Executor.ProcessAllWords(tokenDebugPrintingReader, paragWordCounter, IOState.Writer!, Console.Out);
             //Executor.ProcessAllWords(tokenReader, tableSummator, IOState.Writer!, Console.Out);
 
 

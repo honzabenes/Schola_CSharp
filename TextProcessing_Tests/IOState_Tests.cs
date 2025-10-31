@@ -52,7 +52,7 @@
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndColumnNameFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
@@ -72,7 +72,7 @@
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndColumnNameFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
@@ -92,7 +92,7 @@
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndColumnNameFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
