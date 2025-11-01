@@ -1,5 +1,9 @@
 ﻿namespace TextProcessing
 {
+    /// <summary>
+    /// Wraps an existing <see cref="ITokenReader"/> to justify End of Line tokens,
+    /// so the row width is limited based on the given max line width.
+    /// </summary>
     public class EoLTokenJustifierTokenReaderWrapper : ITokenReader
     {
         private ITokenReader _reader { get; set; }
@@ -27,6 +31,7 @@
                 return token;
             }
 
+            // Skip End of Lines
             while ((token = _reader.ReadToken()) is { Type: TypeToken.EoL }) { }
 
             if (token.Type == TypeToken.Word)

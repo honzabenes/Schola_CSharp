@@ -10,12 +10,11 @@
         {
             try
             {
-                Token token = reader.ReadToken();
+                Token token;
 
-                while (token.Type != TypeToken.EoI)
+                while ((token = reader.ReadToken()) is not { Type: TypeToken.EoI })
                 {
                     processor.ProcessToken(token);
-                    token = reader.ReadToken();
                 }
 
                 processor.ProcessToken(token);

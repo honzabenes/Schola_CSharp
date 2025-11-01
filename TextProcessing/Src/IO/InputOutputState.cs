@@ -94,15 +94,18 @@
             }
             catch (FormatException)
             {
+                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
             catch (OverflowException)
             {
+                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 
             if (MaxTextWidth <= 0)
             {
+                Console.WriteLine(ArgumentErrorMessage);
                 return false;
             }
 

@@ -1,5 +1,9 @@
 ﻿namespace TextProcessing
 {
+    /// <summary>
+    /// Wraps an existing <see cref="ITokenReader"/> for text justification implementation based
+    /// on the given maxLineWidth. This class assumes justified End of Line tokens on the input.
+    /// </summary>
     public class SpaceAddingTokenReaderWrapper : ITokenReader
     {
         private ITokenReader _reader { get; set; }
@@ -39,8 +43,17 @@
 
             lineEndingToken = token;
 
+            // Reader didn't load any word token
             if (wordsInLine.Count == 0)
             {
+                _wordBuffer.Enqueue(lineEndingToken);
+                return;
+            }
+
+            // One word line, justify to the left
+            if (wordsInLine.Count == 1)
+            {
+                _wordBuffer.Enqueue(wordsInLine[0]);
                 _wordBuffer.Enqueue(lineEndingToken);
                 return;
             }
@@ -57,6 +70,7 @@
             }
 
             int totalSpacesWidth = _maxLineWidth - totalWordsLength;
+
             int baseSpaceWidth;
             int spacesRemainder;
 
@@ -76,6 +90,7 @@
             {
                 _wordBuffer.Enqueue(wordsInLine[i]);
 
+                // If the word isn't the last on the line, add spaces
                 if (i < spacesCount)
                 {
                     for (int j = 0; j < baseSpaceWidth; j++)

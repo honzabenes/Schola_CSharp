@@ -1,16 +1,34 @@
 ﻿namespace TextProcessing
 {
-    public class TextPrinter : ITokenProcessor
+    /// <summary>
+    /// Prints text based on tokens coming from the given input stream to the specified output.
+    /// </summary>
+    public class TextPrinter
     {
+        private ITokenReader _reader;
         private TextWriter _writer;
 
-        public TextPrinter(TextWriter writer)
+        public TextPrinter(ITokenReader reader, TextWriter writer)
         {
+            _reader = reader;
             _writer = writer;
         }
 
 
-        public void ProcessToken(Token token)
+        public void PrintAllTokens()
+        {
+            Token token;
+
+            while ((token = _reader.ReadToken()) is not { Type: TypeToken.EoI })
+            {
+                PrintToken(token);
+            }
+
+            PrintToken(token);
+        }
+
+
+        private void PrintToken(Token token)
         {
             switch (token.Type)
             {
@@ -23,26 +41,21 @@
                     break;
 
                 case TypeToken.EoL:
-                    _writer.Write('\n');
+                    _writer.WriteLine();
                     break;
 
                 case TypeToken.EoP:
-                    _writer.Write("\n\n");
+                    _writer.WriteLine();
+                    _writer.WriteLine();
                     break;
 
                 case TypeToken.EoI:
-                    _writer.Write("\n");
+                    _writer.WriteLine();
                     break;
 
                 default:
                     break;
             }
-        }
-
-        public void WriteOut(TextWriter writer)
-        {
-            _writer.WriteLine("\nNot implemented WriteOut!!!");
-            return;
         }
     }
 }

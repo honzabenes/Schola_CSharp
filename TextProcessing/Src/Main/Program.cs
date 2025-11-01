@@ -10,6 +10,33 @@
 
         // Text Processors
 
+        private static void RunTextJustifier(string[] args)
+        {
+            var IOState = new InputOutputState();
+
+            if (!IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args))
+            {
+                return;
+            }
+
+            // Token Reader Pipeline
+            ITokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
+            ITokenReader paragraphDetectingTokenReaderWrapper = new ParagraphDetectingTokenReaderWrapper(tokenReader);
+            ITokenReader tokenEoLJustifier = new EoLTokenJustifierTokenReaderWrapper(paragraphDetectingTokenReaderWrapper, IOState.MaxTextWidth);
+            ITokenReader spaceAddingTokenReaderWrapper = new SpaceAddingTokenReaderWrapper(tokenEoLJustifier, IOState.MaxTextWidth);
+            // Debug wrapper
+            ITokenReader debugPrintingTokenReaderWrapper = new DebugPrintingTokenReaderWrapper(spaceAddingTokenReaderWrapper);
+            // Overall wrapper
+            ITokenReader tokenReaderWrapper = spaceAddingTokenReaderWrapper;
+
+            TextPrinter textPrinter = new TextPrinter(tokenReaderWrapper, IOState.Writer!);
+
+            textPrinter.PrintAllTokens();
+
+            IOState.Dispose();
+        }
+
+
         private static void RunWordCounter(string[] args)
         {
             var IOState = new InputOutputState();
@@ -83,30 +110,6 @@
             ITokenProcessor tableSummator = new TableSummator(IOState.ColumnName!);
 
             Executor.ProcessAllWords(tokenParagraphReader, tableSummator, IOState.Writer!, Console.Out);
-
-            IOState.Dispose();
-        }
-
-        
-        private static void RunTextJustifier(string[] args)
-        {
-            var IOState = new InputOutputState();
-
-            if (!IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args))
-            {
-                return;
-            }
-
-            ITokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
-            ITokenReader paragraphDetectingTokenReaderWrapper = new ParagraphDetectingTokenReaderWrapper(tokenReader);
-            ITokenReader tokenEoLJustifier = new EoLTokenJustifierTokenReaderWrapper(paragraphDetectingTokenReaderWrapper, IOState.MaxTextWidth);
-            ITokenReader spaceAddingTokenReaderWrapper = new SpaceAddingTokenReaderWrapper(tokenEoLJustifier, IOState.MaxTextWidth);
-            //ITokenReader debugPrintingTokenReaderWrapper = new DebugPrintingTokenReaderWrapper(tokenEoLJustifier);
-            ITokenReader debugPrintingTokenReaderWrapper = new DebugPrintingTokenReaderWrapper(spaceAddingTokenReaderWrapper);
-
-            ITokenProcessor textPrinter = new TextPrinter(IOState.Writer!);
-
-            Executor.ProcessAllWords(debugPrintingTokenReaderWrapper, textPrinter, Console.Out, Console.Out);
 
             IOState.Dispose();
         }
