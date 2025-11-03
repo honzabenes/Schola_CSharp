@@ -30,26 +30,40 @@
 
             token = _reader.ReadToken();
 
-            if (token.Type == TypeToken.EoL)
+
+            switch (token.Type)
             {
-                if (_wordFound)
-                {
-                    _newLineStreak++;
-                }
+                case TypeToken.EoL:
+                    if (_wordFound)
+                    {
+                        _newLineStreak++;
+                    }
+                    break;
 
-                return token;
+                case TypeToken.Word:
+                    if (_newLineStreak >= 2)
+                    {
+                        _newLineStreak = 0;
+                        _priorityToken = token;
+
+                        return new Token(TypeToken.EoP);
+                    }
+                    _newLineStreak = 0;
+                    _wordFound = true;
+                    break;
+
+                case TypeToken.EoI:
+                    if (_wordFound)
+                    {
+                        _priorityToken = token;
+
+                        return new Token(TypeToken.EoP);
+                    }
+                    break;
+
+                default: 
+                    break;
             }
-            
-            if (_newLineStreak >= 2)
-            {
-                _newLineStreak = 0;
-                _priorityToken = token;
-
-                return new Token(TypeToken.EoP);
-            }
-
-            _wordFound = true;
-            _newLineStreak = 0;
 
             return token;
         }

@@ -73,8 +73,6 @@
             if (token.Type == TypeToken.EoP)
             {
                 _currentLineWidth = 0;
-
-                return new Token(TypeToken.EoP);
             }
 
             return token;

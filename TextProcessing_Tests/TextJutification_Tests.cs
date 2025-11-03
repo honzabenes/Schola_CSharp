@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TextProcessing_Tests
+﻿namespace TextProcessing_Tests
 {
     public class TextJustification_Tests
     {
@@ -26,7 +24,7 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = "";
 
@@ -42,6 +40,7 @@ namespace TextProcessing_Tests
             string input = """
                 Loremipsumdolorsitamet
                 ad nam. Cu qu
+                
                 """;
 
             int maxTextWidth = 10;
@@ -60,12 +59,13 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Loremipsumdolorsitamet
                 ad nam. Cu
                 qu
+                
                 """;
 
             // Assert
@@ -80,6 +80,7 @@ namespace TextProcessing_Tests
             string input = """
                 Loremnam
                 ad nam. Cu qu
+                
                 """;
 
             int maxTextWidth = 10;
@@ -98,12 +99,13 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Loremnam
                 ad nam. Cu
                 qu
+                
                 """;
 
             // Assert
@@ -117,6 +119,7 @@ namespace TextProcessing_Tests
             // Arrange
             string input = """
                 Lorem ipsum, meliore albucius torquatos p
+                
                 """;
 
             int maxTextWidth = 20;
@@ -135,11 +138,12 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem ipsum, meliore
                 albucius torquatos p
+                
                 """;
 
             // Assert
@@ -154,6 +158,7 @@ namespace TextProcessing_Tests
             string input ="""
                 Lorem ipsum cu pri
                 Lorem ipsum dolor si
+                
                 """;
 
             int maxTextWidth = 20;
@@ -172,11 +177,12 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem  ipsum  cu pri
                 Lorem ipsum dolor si
+                
                 """;
 
             // Assert
@@ -191,6 +197,7 @@ namespace TextProcessing_Tests
             string input = """
                 Lorem ipsum dolor si
                 Lorem ipsum
+                
                 """;
 
             int maxTextWidth = 20;
@@ -209,11 +216,12 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem ipsum dolor si
                 Lorem ipsum
+                
                 """;
 
             // Assert
@@ -232,6 +240,7 @@ namespace TextProcessing_Tests
                 at mea natum nullam 
                 omittam. Sed propriae corrumpit eu. Has recusabo 
                 tincidunt inciderint ad, ne mea legere graeci.
+                
                 """;
 
             int maxTextWidth = 20;
@@ -250,7 +259,7 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem   ipsum  dolor
@@ -270,6 +279,7 @@ namespace TextProcessing_Tests
                 tincidunt inciderint
                 ad,  ne  mea  legere
                 graeci.
+                
                 """;
 
             // Assert
@@ -295,6 +305,7 @@ namespace TextProcessing_Tests
                 eius placerat vulputate ne vel.
                  Ea eum ponderum patrioque liberavisse.
                 Movet viderer et mea, qui te insolens vituperata, duo habeo virtute no. Cu molestie adolescens est, eam mundi soleat appareat ad, an hinc graeci eum.
+                
                 """;
 
             int maxTextWidth = 30;
@@ -313,7 +324,7 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem  ipsum  dolor  sit amet,
@@ -339,6 +350,7 @@ namespace TextProcessing_Tests
                 no.   Cu  molestie  adolescens
                 est, eam mundi soleat appareat
                 ad, an hinc graeci eum.
+                
                 """;
 
             // Assert
@@ -352,6 +364,7 @@ namespace TextProcessing_Tests
             // Arrange
             string input = """
                 Has liber civibus ea. Ut his possim docendi, cum ne doming essent intellegam. Sea quodsi invidunt et, id vel nobis postea. Sit tantas tincidunt id, eos cu veniam labores adipisci, molestie suscipiantur ea nec. Tantas antiopam et has. Vis id ullum fabulas mnesarchum, vix ne lorem laudem convenire. Cu mel mutat soluta reformidans, cum ex odio animal, prima fierent mel no. His meis percipit molestiae at, natum officiis vix ea. Mel no salutatus aliquando. Mucius doming iriure no mel, fierent voluptatibus ut his. In eam esse nemore conclusionemque. Quod suavitate ei ius. No albucius suscipit vix, ei eros graece utroque vix, ne modus movet eloquentiam nam. Vix tibique tractatos dissentias te, aeque deseruisse mnesarchum mei an, dicat nonumes sed eu. Ut eirmod iisque splendide mea. Ex sumo principes referrentur qui. Id semper doctus nusquam mel. Brute everti sensibus ei eos, has liber impetus mediocritatem et, id sea scripta tractatos voluptatum. Ne illud novum principes cum. Cu pro possit vocent tamquam, vel te modo ferri volutpat. Vis ne eruditi appareat expetendis, labitur labores graecis in nam. Eum ullum impedit graecis in, labitur tractatos mea et, no cum inani putent fabulas. Impetus voluptua lobortis eu pri, sale erant in qui. Ei qui legendos mediocrem. Pri ex virtute pericula philosophia. Qui eu salutandi rationibus. Nibh zril eu nec. Ut ius aeque rationibus quaerendum, te vix solet putant impedit, ex reque persius delectus cum. Putant delenit comprehensam ex mea, ne per aliquid perfecto. Ne nec quando utinam liberavisse, sea ad mollis corrumpit. Virtute laoreet eu has, mel ne dicunt nostrud epicurei. Nam an vidisse oblique. Ex eos erat audire recteque.
+                
                 """;
 
             int maxTextWidth = 40;
@@ -370,7 +383,7 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Has  liber  civibus  ea.  Ut  his possim
@@ -419,6 +432,7 @@ namespace TextProcessing_Tests
                 Virtute  laoreet  eu  has, mel ne dicunt
                 nostrud   epicurei.   Nam   an   vidisse
                 oblique. Ex eos erat audire recteque.
+                
                 """;
 
             // Assert
@@ -456,6 +470,7 @@ namespace TextProcessing_Tests
 
                 Albucius principes laboramus pri ei. Ei elit elitr eligendi mea. In ignota labores mea. Fuisset mentitum facilisis eam no, ad errem dicam accumsan sea. Nonumy tempor ceteros ad pro, nam aperiam epicuri voluptua ad.
                 
+                
                 """;
 
             int maxTextWidth = 40;
@@ -474,7 +489,7 @@ namespace TextProcessing_Tests
             // Act
             textPrinter.PrintAllTokens();
 
-            string? output = sw.ToString().Trim();
+            string? output = sw.ToString();
 
             string expected = """
                 Lorem  ipsum  dolor  sit  amet,  meliore
@@ -564,6 +579,7 @@ namespace TextProcessing_Tests
                 eam  no,  ad  errem  dicam accumsan sea.
                 Nonumy   tempor   ceteros  ad  pro,  nam
                 aperiam epicuri voluptua ad.
+                
                 """;
 
             // Assert

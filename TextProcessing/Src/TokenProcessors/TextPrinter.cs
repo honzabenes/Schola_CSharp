@@ -7,6 +7,7 @@
     {
         private ITokenReader _reader;
         private TextWriter _writer;
+        private bool _paragraphFound = false;
 
         public TextPrinter(ITokenReader reader, TextWriter writer)
         {
@@ -35,6 +36,11 @@
             switch (token.Type)
             {
                 case TypeToken.Word:
+                    if (_paragraphFound)
+                    {
+                        _writer.Write(newLineChar);
+                        _paragraphFound = false;
+                    }
                     _writer.Write(token.Word);
                     break;
 
@@ -44,16 +50,10 @@
 
                 case TypeToken.EoL:
                     _writer.Write(newLineChar);
-                    break;
+                        break;
 
                 case TypeToken.EoP:
-                    for (int i = 0; i < 2; i++)
-                    {
-                        _writer.Write(newLineChar);
-                    }
-                    break;
-
-                case TypeToken.EoI:
+                    _paragraphFound = true;
                     _writer.Write(newLineChar);
                     break;
 
