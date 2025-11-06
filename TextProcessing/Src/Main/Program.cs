@@ -35,11 +35,11 @@
         public static ITokenReader CreateTokenReaderPipelineForLineJustifier(TextReader reader, int maxTextWidth)
         {
             ITokenReader tokenReaderByChars = new TokenReaderByChars(reader);
-            ITokenReader paragraphDetectingTokenReaderWrapper = new ParagraphDetectingTokenReaderWrapper(tokenReaderByChars);
-            ITokenReader tokenEoLJustifier = new EoLTokenJustifierTokenReaderWrapper(paragraphDetectingTokenReaderWrapper, maxTextWidth);
-            ITokenReader tokenSpaceAddingReader = new SpaceAddingTokenReaderWrapper(tokenEoLJustifier, maxTextWidth);
+            ITokenReader paragraphDetectingDecorator = new ParagraphDetectingTokenReaderDecorator(tokenReaderByChars);
+            ITokenReader EoLTokenJustifierDecorator = new EoLTokenJustifierTokenReaderDecorator(paragraphDetectingDecorator, maxTextWidth);
+            ITokenReader spaceAddingDecorator = new SpaceAddingTokenReaderDecorator(EoLTokenJustifierDecorator, maxTextWidth);
 
-            return tokenSpaceAddingReader;
+            return spaceAddingDecorator;
         }
 
 
@@ -91,7 +91,7 @@
             }
 
             ITokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
-            ITokenReader tokenParagraphReader = new ParagraphDetectingTokenReaderWrapper(tokenReader);
+            ITokenReader tokenParagraphReader = new ParagraphDetectingTokenReaderDecorator(tokenReader);
 
             ITokenProcessor paragraphWordCounter = new ParagraphWordCounter();
 
@@ -111,7 +111,7 @@
             }
 
             ITokenReader tokenReader = new TokenReaderByChars(IOState.Reader!);
-            ITokenReader tokenParagraphReader = new ParagraphDetectingTokenReaderWrapper(tokenReader);
+            ITokenReader tokenParagraphReader = new ParagraphDetectingTokenReaderDecorator(tokenReader);
 
             ITokenProcessor tableSummator = new TableSummator(IOState.ColumnName!);
 

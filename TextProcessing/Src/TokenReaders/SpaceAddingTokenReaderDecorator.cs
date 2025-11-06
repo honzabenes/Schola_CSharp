@@ -4,13 +4,13 @@
     /// Wraps an existing <see cref="ITokenReader"/> for text justification implementation based
     /// on the given maxLineWidth. This class assumes justified End of Line tokens on the input.
     /// </summary>
-    public class SpaceAddingTokenReaderWrapper : ITokenReader
+    public class SpaceAddingTokenReaderDecorator : ITokenReader
     {
         private ITokenReader _reader { get; set; }
-        private Queue<Token> _wordBuffer { get; set; } = new Queue<Token>();
+        private Queue<Token> _tokenBuffer { get; set; } = new Queue<Token>();
         private int _maxLineWidth { get; init; }
 
-        public SpaceAddingTokenReaderWrapper(ITokenReader reader, int maxLineWidth)
+        public SpaceAddingTokenReaderDecorator(ITokenReader reader, int maxLineWidth)
         {
             _reader = reader;
             _maxLineWidth = maxLineWidth;
@@ -19,12 +19,12 @@
 
         public Token ReadToken()
         {
-            if (_wordBuffer.Count == 0)
+            if (_tokenBuffer.Count == 0)
             {
                 LoadNextLine();
             }
 
-            return _wordBuffer.Dequeue();
+            return _tokenBuffer.Dequeue();
         }
 
 
@@ -46,15 +46,15 @@
             // Reader didn't load any word token
             if (wordsInLine.Count == 0)
             {
-                _wordBuffer.Enqueue(lineEndingToken);
+                _tokenBuffer.Enqueue(lineEndingToken);
                 return;
             }
 
             // One word line, justify to the left
             if (wordsInLine.Count == 1)
             {
-                _wordBuffer.Enqueue(wordsInLine[0]);
-                _wordBuffer.Enqueue(lineEndingToken);
+                _tokenBuffer.Enqueue(wordsInLine[0]);
+                _tokenBuffer.Enqueue(lineEndingToken);
                 return;
             }
 
@@ -88,25 +88,25 @@
 
             for (int i = 0; i < wordsInLine.Count; i++)
             {
-                _wordBuffer.Enqueue(wordsInLine[i]);
+                _tokenBuffer.Enqueue(wordsInLine[i]);
 
                 // If the word isn't the last on the line, add spaces
                 if (i < spacesCount)
                 {
                     for (int j = 0; j < baseSpaceWidth; j++)
                     {
-                        _wordBuffer.Enqueue(new Token(TypeToken.Space));
+                        _tokenBuffer.Enqueue(new Token(TypeToken.Space));
                     }
 
                     if (spacesRemainder > 0)
                     {
-                        _wordBuffer.Enqueue(new Token(TypeToken.Space));
+                        _tokenBuffer.Enqueue(new Token(TypeToken.Space));
                         spacesRemainder--;
                     }
                 }
             }
 
-            _wordBuffer.Enqueue(lineEndingToken);
+            _tokenBuffer.Enqueue(lineEndingToken);
         }
     }
 }

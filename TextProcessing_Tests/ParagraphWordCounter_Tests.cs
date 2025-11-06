@@ -17,7 +17,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -39,7 +39,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -64,7 +64,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -95,7 +95,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -117,7 +117,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -151,7 +151,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);
@@ -209,7 +209,7 @@ namespace TextProcessing_Tests
 
             ITokenProcessor wordCounter = new ParagraphWordCounter();
             ITokenReader tReader = new TokenReaderByChars(sr);
-            ITokenReader pdtReader = new ParagraphDetectingTokenReaderWrapper(tReader);
+            ITokenReader pdtReader = new ParagraphDetectingTokenReaderDecorator(tReader);
 
             // Act
             Executor.ProcessAllWords(pdtReader, wordCounter, sw, sw);

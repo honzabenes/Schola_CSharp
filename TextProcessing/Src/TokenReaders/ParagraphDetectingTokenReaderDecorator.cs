@@ -3,14 +3,14 @@
     /// <summary>
     /// Wraps an existing <see cref="ITokenReader"/> and detects paragraph based on EoL tokens.
     /// </summary>
-    public class ParagraphDetectingTokenReaderWrapper : ITokenReader
+    public class ParagraphDetectingTokenReaderDecorator : ITokenReader
     {
         private ITokenReader _reader { get; set; }
         private Token? _priorityToken = null;
         private int _newLineStreak { get; set; } = 0;
         private bool _wordFound { get; set; } = false;
 
-        public ParagraphDetectingTokenReaderWrapper(ITokenReader reader)
+        public ParagraphDetectingTokenReaderDecorator(ITokenReader reader)
         {
             _reader = reader;
         }

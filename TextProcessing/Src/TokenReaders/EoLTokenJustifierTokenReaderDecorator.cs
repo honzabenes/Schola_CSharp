@@ -4,7 +4,7 @@
     /// Wraps an existing <see cref="ITokenReader"/> to justify End of Line tokens,
     /// so the row width is limited based on the given max line width.
     /// </summary>
-    public class EoLTokenJustifierTokenReaderWrapper : ITokenReader
+    public class EoLTokenJustifierTokenReaderDecorator : ITokenReader
     {
         private ITokenReader _reader { get; set; }
         private Token? _priorityToken = null;
@@ -12,7 +12,7 @@
         private int _currentLineWidth { get; set; } = 0;
         private const int MIN_SPACE_WIDTH = 1;
 
-        public EoLTokenJustifierTokenReaderWrapper(ITokenReader reader, int maxLineWidth)
+        public EoLTokenJustifierTokenReaderDecorator(ITokenReader reader, int maxLineWidth)
         {
             _reader = reader;
             _maxLineWidth = maxLineWidth;
