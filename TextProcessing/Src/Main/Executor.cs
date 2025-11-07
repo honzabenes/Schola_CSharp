@@ -6,6 +6,10 @@
     /// </summary>
     public static class Executor
     {
+        public const string InvalidFileFormatErrorMessage = "Invalid File Format";
+        public const string InvalidIntegerValueErrorMessage = "Invalid Integer Value";
+        public const string NonExistentColumnNameErrorMessage = "Non-existent Column Name";
+
         public static void ProcessAllWords(ITokenReader reader, ITokenProcessor processor, TextWriter writer, TextWriter errWriter)
         {
             try
@@ -21,17 +25,17 @@
             }
             catch (InvalidInputFormatException)
             {
-                errWriter.WriteLine("Invalid File Format");
+                errWriter.WriteLine(InvalidFileFormatErrorMessage);
                 return;
             }
             catch (NotParsableByIntException)
             {
-                errWriter.WriteLine("Invalid Integer Value");
+                errWriter.WriteLine(InvalidIntegerValueErrorMessage);
                 return;
             }
             catch (NonExistenColumnNameInTableException)
             {
-                errWriter.WriteLine("Non-existent Column Name");
+                errWriter.WriteLine(NonExistentColumnNameErrorMessage);
                 return;
             }
 
