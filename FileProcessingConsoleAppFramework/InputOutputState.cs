@@ -21,11 +21,11 @@
         }
 
 
-        public void OpenInputFile(string filepath)
+        public void OpenInputFile(int argument)
         {
             try
             {
-                Reader = new StreamReader(filepath);
+                Reader = new StreamReader(_args[argument]);
             }
             catch (IOException)
             {
@@ -42,11 +42,11 @@
         }
 
 
-        public void OpenOutputFile(string filepath)
+        public void OpenOutputFile(int argument)
         {
             try
             {
-                Reader = new StreamReader(filepath);
+                Reader = new StreamReader(_args[argument]);
             }
             catch (IOException)
             {

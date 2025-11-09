@@ -21,12 +21,13 @@ namespace WordCounterApp
             var IOState = new InputOutputState(args);
 
             IOState.CheckArgumentsCount(1);
-            IOState.OpenInputFile(args[0]);
+            IOState.OpenInputFile(0);
 
             var tokenReader = new ByCharsTokenReader(IOState.Reader!);
             var wordCounter = new WordCounter();
 
             TokenProcessing.ProcessTokensUntilEndOfInput(tokenReader, wordCounter);
+
             wordCounter.WriteOut(Console.Out);
 
             IOState.Dispose();
