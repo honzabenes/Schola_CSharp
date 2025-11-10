@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "TextProcessing.csproj", "{9BC4719F-A5EE-42B4-A5EF-ACD913CC2AE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "src\TextProcessing\TextProcessing.csproj", "{9BC4719F-A5EE-42B4-A5EF-ACD913CC2AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing_Tests", "..\TextProcessing_Tests\TextProcessing_Tests.csproj", "{170B5F4A-0365-4E87-B5FB-DCE2FA6D5D5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing_Tests", "src\TextProcessing_Tests\TextProcessing_Tests.csproj", "{170B5F4A-0365-4E87-B5FB-DCE2FA6D5D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenProcessingFramework", "..\TokenProcessingFramework\TokenProcessingFramework.csproj", "{266DF4A0-A2D0-4805-8C23-9CB52E7E96C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenProcessingFramework", "src\TokenProcessingFramework\TokenProcessingFramework.csproj", "{266DF4A0-A2D0-4805-8C23-9CB52E7E96C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcessingConsoleAppFramework", "..\FileProcessingConsoleAppFramework\FileProcessingConsoleAppFramework.csproj", "{D48D0A44-5CB8-499C-8E57-B36490FBCC79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcessingConsoleAppFramework", "src\FileProcessingConsoleAppFramework\FileProcessingConsoleAppFramework.csproj", "{D48D0A44-5CB8-499C-8E57-B36490FBCC79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCounterApp", "..\WordCounterApp\WordCounterApp.csproj", "{E7519E1A-C649-4690-BE11-22C976A5F3FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCounterApp", "src\WordCounterApp\WordCounterApp.csproj", "{E7519E1A-C649-4690-BE11-22C976A5F3FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordFrequencyCounterApp", "..\WordFrequencyCounterApp\WordFrequencyCounterApp.csproj", "{90CFE8F6-BA2E-42A4-9E13-25794BF0ECA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordFrequencyCounterApp", "src\WordFrequencyCounterApp\WordFrequencyCounterApp.csproj", "{90CFE8F6-BA2E-42A4-9E13-25794BF0ECA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -23,11 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33C6DAC4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{9D213C8C-8945-47B6-8D78-54B7BD7D692C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableSummatorApp", "..\TableSummatorApp\TableSummatorApp.csproj", "{3BDCEE91-306A-4A42-A546-14B21B7509B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableSummatorApp", "src\TableSummatorApp\TableSummatorApp.csproj", "{3BDCEE91-306A-4A42-A546-14B21B7509B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextJustifierApp", "..\TextJustifierApp\TextJustifierApp.csproj", "{1A6627E1-906E-4368-AB53-C18C04410F67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextJustifierApp", "src\TextJustifierApp\TextJustifierApp.csproj", "{1A6627E1-906E-4368-AB53-C18C04410F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParagraphWordCounterApp", "..\ParagraphWordCounterApp\ParagraphWordCounterApp.csproj", "{8DFCE8BD-8AE0-48A6-A94E-2821D93977F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParagraphWordCounterApp", "src\ParagraphWordCounterApp\ParagraphWordCounterApp.csproj", "{8DFCE8BD-8AE0-48A6-A94E-2821D93977F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
