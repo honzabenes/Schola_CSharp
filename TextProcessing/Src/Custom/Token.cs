@@ -3,12 +3,16 @@
     public enum TypeToken
     { 
         Word,
+        Space,
         EoI,
         EoL,
         EoP
     }
 
-    public struct Token
+    /// <summary>
+    /// Represents a lexical token.
+    /// </summary>
+    public readonly struct Token
     {
         public TypeToken Type { get; init; }
         public string? Word { get; init; }

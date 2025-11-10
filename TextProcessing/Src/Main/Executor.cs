@@ -1,34 +1,41 @@
 ﻿namespace TextProcessing
 {
+    /// <summary>
+    /// Reads all tokens from the given <see cref="ITokenReader"/>, processes them using the specified
+    /// <see cref="ITokenProcessor"/> and writes the output to the provided <see cref="TextWriter"/>
+    /// </summary>
     public static class Executor
     {
-        public static void ProcessAllWords(TokenReader reader, ITokenProcessor processor, TextWriter writer, TextWriter errWriter)
+        public const string InvalidFileFormatErrorMessage = "Invalid File Format";
+        public const string InvalidIntegerValueErrorMessage = "Invalid Integer Value";
+        public const string NonExistentColumnNameErrorMessage = "Non-existent Column Name";
+
+        public static void ProcessAllWords(ITokenReader reader, ITokenProcessor processor, TextWriter writer, TextWriter errWriter)
         {
             try
             {
-                Token token = reader.ReadToken();
+                Token token;
 
-                while (token.Type != TypeToken.EoI)
+                while ((token = reader.ReadToken()) is not { Type: TypeToken.EoI })
                 {
                     processor.ProcessToken(token);
-                    token = reader.ReadToken();
                 }
 
                 processor.ProcessToken(token);
             }
             catch (InvalidInputFormatException)
             {
-                errWriter.WriteLine("Invalid File Format");
+                errWriter.WriteLine(InvalidFileFormatErrorMessage);
                 return;
             }
             catch (NotParsableByIntException)
             {
-                errWriter.WriteLine("Invalid Integer Value");
+                errWriter.WriteLine(InvalidIntegerValueErrorMessage);
                 return;
             }
             catch (NonExistenColumnNameInTableException)
             {
-                errWriter.WriteLine("Non-existent Column Name");
+                errWriter.WriteLine(NonExistentColumnNameErrorMessage);
                 return;
             }
 

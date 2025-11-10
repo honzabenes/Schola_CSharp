@@ -1,9 +1,9 @@
 ﻿namespace TextProcessing_Tests
 {
-    public class IOState_Tests
+    public class IOState_TextJustitifcation_Tests
     {
         [Fact]
-        public void NoArgumentOneExpected()
+        public void NoArgument()
         {
             // Arrange
             string[] args = { };
@@ -13,7 +13,7 @@
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
@@ -23,46 +23,7 @@
 
 
         [Fact]
-        public void TooManyArgumentsOneExpected()
-        {
-            // Arrange
-            string[] args = { "input.txt", "secondArg" };
-            var IOState = new InputOutputState();
-
-            var sw = new StringWriter();
-            Console.SetOut(sw);
-
-            // Act
-            IOState.InitializeReaderFromCLIArguments(args);
-
-            string? output = sw.ToString().Trim();
-
-            // Assert
-            Assert.Equal(InputOutputState.ArgumentErrorMessage, output);
-        }
-
-        [Fact]
-        public void NoArgumentThreeExpected()
-        {
-            // Arrange
-            string[] args = { };
-            var IOState = new InputOutputState();
-
-            var sw = new StringWriter();
-            Console.SetOut(sw);
-
-            // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
-
-            string? output = sw.ToString().Trim();
-
-            // Assert
-            Assert.Equal(InputOutputState.ArgumentErrorMessage, output);
-        }
-
-
-        [Fact]
-        public void TooFewArgumentsThreeExpected()
+        public void TooFewArguments()
         {
             // Arrange
             string[] args = { "input.txt", "output.txt" };
@@ -72,7 +33,7 @@
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
@@ -82,17 +43,17 @@
 
 
         [Fact]
-        public void TooManyArgumentsThreeExpected()
+        public void TooManyArguments()
         {
             // Arrange
-            string[] args = { "input.txt", "output.txt", "column", "fourth" };
+            string[] args = { "input.txt", "output.txt", "30", "fourth" };
             var IOState = new InputOutputState();
 
             var sw = new StringWriter();
             Console.SetOut(sw);
 
             // Act
-            IOState.InitializeReaderWriterColumnNameFromCLIArguments(args);
+            IOState.InitializeReaderWriterAndMaxTextWidthFromCLIArguments(args);
 
             string? output = sw.ToString().Trim();
 
