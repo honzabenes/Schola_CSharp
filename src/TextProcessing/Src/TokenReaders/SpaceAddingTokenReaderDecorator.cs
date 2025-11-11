@@ -36,7 +36,7 @@
             Token token;
 
 
-            while ((token = _reader.ReadToken()) is { Type: TypeToken.Word })
+            while ((token = _reader.ReadToken()) is { Type: TokenType.Word })
             {
                 wordsInLine.Add(token);
             }
@@ -59,7 +59,7 @@
             }
 
 
-            bool justified = lineEndingToken.Type == TypeToken.EoL;
+            bool justified = lineEndingToken.Type == TokenType.EoL;
 
             int spacesCount = wordsInLine.Count - 1;
 
@@ -95,12 +95,12 @@
                 {
                     for (int j = 0; j < baseSpaceWidth; j++)
                     {
-                        _tokenBuffer.Enqueue(new Token(TypeToken.Space));
+                        _tokenBuffer.Enqueue(new Token(TokenType.Space));
                     }
 
                     if (spacesRemainder > 0)
                     {
-                        _tokenBuffer.Enqueue(new Token(TypeToken.Space));
+                        _tokenBuffer.Enqueue(new Token(TokenType.Space));
                         spacesRemainder--;
                     }
                 }

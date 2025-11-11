@@ -13,11 +13,11 @@
         {
             switch (token.Type)
             {
-                case TypeToken.Word:
+                case TokenType.Word:
                     ProcessWordToken();
                     break;
 
-                case TypeToken.EoP:
+                case TokenType.EoP:
                     CurrentParagraph++;
                     break;
 

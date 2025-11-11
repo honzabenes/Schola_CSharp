@@ -1,6 +1,6 @@
 ﻿namespace TextProcessing
 {
-    public enum TypeToken
+    public enum TokenType
     { 
         Word,
         Space,
@@ -14,12 +14,12 @@
     /// </summary>
     public readonly struct Token
     {
-        public TypeToken Type { get; init; }
+        public TokenType Type { get; init; }
         public string? Word { get; init; }
 
-        public Token(TypeToken type)
+        public Token(TokenType type)
         {
-            if (type == TypeToken.Word)
+            if (type == TokenType.Word)
             {
                 throw new InvalidOperationException("Use Token(string word) constructor instead.");
             }
@@ -30,7 +30,7 @@
 
         public Token(string word)
         {
-            Type = TypeToken.Word;
+            Type = TokenType.Word;
             Word = word;
         }
 

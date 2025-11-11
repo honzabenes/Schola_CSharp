@@ -7,7 +7,6 @@
     {
         private ITokenReader _reader { get; set; }
         private Token? _priorityToken = null;
-        private int _newLineStreak { get; set; } = 0;
         private bool _wordFound { get; set; } = false;
 
         public ParagraphDetectingTokenReaderDecorator(ITokenReader reader)
@@ -18,54 +17,54 @@
 
         public Token ReadToken()
         {
-            Token token;
-
             if (_priorityToken is not null)
             {
-                token = (Token)_priorityToken;
+                var token = _priorityToken.Value;
                 _priorityToken = null;
 
                 return token;
             }
-
-            token = _reader.ReadToken();
-
-
-            switch (token.Type)
+            else
             {
-                case TokenType.EoL:
+                int newLinesFound = 0;
+
+                Token token;
+                while ((token = _reader.ReadToken()).Type == TokenType.EoL)
+                {
                     if (_wordFound)
                     {
-                        _newLineStreak++;
+                        newLinesFound++;
                     }
-                    break;
+                }
 
-                case TokenType.Word:
-                    if (_newLineStreak >= 2)
-                    {
-                        _newLineStreak = 0;
-                        _priorityToken = token;
-
-                        return new Token(TokenType.EoP);
-                    }
-                    _newLineStreak = 0;
+                if (token.Type == TokenType.Word && !_wordFound)
+                {
                     _wordFound = true;
-                    break;
+                }
 
-                case TokenType.EoI:
-                    if (_wordFound)
+                if (_wordFound)
+                {
+                    if (token.Type == TokenType.EoI)
                     {
                         _priorityToken = token;
-
                         return new Token(TokenType.EoP);
                     }
-                    break;
 
-                default: 
-                    break;
+                    if (newLinesFound == 1)
+                    {
+                        _priorityToken = token;
+                        return new Token(TokenType.EoL);
+                    }
+
+                    if (newLinesFound > 1)
+                    {
+                        _priorityToken = token;
+                        return new Token(TokenType.EoP);
+                    }
+                }
+
+                return token;
             }
-
-            return token;
         }
     }
 }

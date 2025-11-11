@@ -20,7 +20,7 @@
         {
             Token token;
 
-            while ((token = _reader.ReadToken()) is not { Type: TypeToken.EoI })
+            while ((token = _reader.ReadToken()) is not { Type: TokenType.EoI })
             {
                 PrintToken(token);
             }
@@ -35,7 +35,7 @@
 
             switch (token.Type)
             {
-                case TypeToken.Word:
+                case TokenType.Word:
                     if (_paragraphFound)
                     {
                         _writer.Write(newLineChar);
@@ -44,15 +44,15 @@
                     _writer.Write(token.Word);
                     break;
 
-                case TypeToken.Space:
+                case TokenType.Space:
                     _writer.Write(" ");
                     break;
 
-                case TypeToken.EoL:
+                case TokenType.EoL:
                     _writer.Write(newLineChar);
                         break;
 
-                case TypeToken.EoP:
+                case TokenType.EoP:
                     _paragraphFound = true;
                     _writer.Write(newLineChar);
                     break;

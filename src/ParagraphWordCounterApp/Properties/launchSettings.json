@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ParagraphWordCounterApp": {
+      "commandName": "Project",
+      "commandLineArgs": "input.txt"
+    }
+  }
+}

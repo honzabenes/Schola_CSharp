@@ -25,10 +25,11 @@ namespace ParagraphWordCounterApp
 
             var byCharsTokenReader = new ByCharsTokenReader(IOState.Reader!);
             var baseReader = new ParagraphDetectingTokenReaderDecorator(byCharsTokenReader);
+            var debugReader = new DebugPrintingTokenReaderWrapper(baseReader);
 
             var paragraphWordCounter = new ParagraphWordCounter();
 
-            TokenProcessing.ProcessTokensUntilEndOfInput(baseReader, paragraphWordCounter);
+            TokenProcessing.ProcessTokensUntilEndOfInput(debugReader, paragraphWordCounter);
 
             paragraphWordCounter.WriteOut(Console.Out);
 

@@ -29,15 +29,15 @@ namespace TextProcessing
         {
             switch (token.Type)
             {
-                case TypeToken.Word:
+                case TokenType.Word:
                     ProcessWordToken(token);
                     break;
 
-                case TypeToken.EoL:
+                case TokenType.EoL:
                     ProcessEoLToken();
                     break;
 
-                case TypeToken.EoI:
+                case TokenType.EoI:
                     ProcessEoIToken();
                     break;
 
