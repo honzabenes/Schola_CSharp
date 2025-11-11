@@ -33,31 +33,31 @@
 
             switch (token.Type)
             {
-                case TypeToken.EoL:
+                case TokenType.EoL:
                     if (_wordFound)
                     {
                         _newLineStreak++;
                     }
                     break;
 
-                case TypeToken.Word:
+                case TokenType.Word:
                     if (_newLineStreak >= 2)
                     {
                         _newLineStreak = 0;
                         _priorityToken = token;
 
-                        return new Token(TypeToken.EoP);
+                        return new Token(TokenType.EoP);
                     }
                     _newLineStreak = 0;
                     _wordFound = true;
                     break;
 
-                case TypeToken.EoI:
+                case TokenType.EoI:
                     if (_wordFound)
                     {
                         _priorityToken = token;
 
-                        return new Token(TypeToken.EoP);
+                        return new Token(TokenType.EoP);
                     }
                     break;
 

@@ -22,7 +22,7 @@ namespace TextJustifierApp
         {
             Token token;
 
-            while ((token = _reader.ReadToken()) is not { Type: TypeToken.EoI })
+            while ((token = _reader.ReadToken()) is not { Type: TokenType.EoI })
             {
                 PrintToken(token);
             }
@@ -37,20 +37,20 @@ namespace TextJustifierApp
 
             switch (token.Type)
             {
-                case TypeToken.Space:
+                case TokenType.Space:
                     _writer.Write(" ");
                     break;
 
-                case TypeToken.EoL:
+                case TokenType.EoL:
                     _writer.Write(newLineChar);
                     break;
 
-                case TypeToken.EoP:
+                case TokenType.EoP:
                     _isNewParagraph = true;
                     _writer.Write(newLineChar);
                     break;
 
-                case TypeToken.Word:
+                case TokenType.Word:
                     if (_isNewParagraph)
                     {
                         _writer.Write(newLineChar);

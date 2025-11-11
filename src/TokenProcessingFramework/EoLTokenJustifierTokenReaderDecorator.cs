@@ -28,7 +28,7 @@
                 token = (Token)_priorityToken;
                 _priorityToken = null;
 
-                if (token.Type == TypeToken.Word)
+                if (token.Type == TokenType.Word)
                 {
                     _currentLineWidth = token.Word!.Length + MIN_SPACE_WIDTH;
                 }
@@ -37,12 +37,12 @@
             }
 
             // Skip End of Line tokens
-            while ((token = _reader.ReadToken()) is { Type: TypeToken.EoL }) 
+            while ((token = _reader.ReadToken()) is { Type: TokenType.EoL }) 
             {
                 continue;
             }
 
-            if (token.Type == TypeToken.Word)
+            if (token.Type == TokenType.Word)
             {
                 _currentLineWidth += token.Word!.Length;
 
@@ -53,7 +53,7 @@
                     {
                         _currentLineWidth = 0;
 
-                        _priorityToken = new Token(TypeToken.EoL);
+                        _priorityToken = new Token(TokenType.EoL);
 
                         return token;
                     }
@@ -62,7 +62,7 @@
                     _priorityToken = token;
                     _currentLineWidth = 0;
 
-                    return new Token(TypeToken.EoL);
+                    return new Token(TokenType.EoL);
                 }
 
                 _currentLineWidth += MIN_SPACE_WIDTH;
@@ -70,7 +70,7 @@
                 return token;
             }
 
-            if (token.Type == TypeToken.EoP)
+            if (token.Type == TokenType.EoP)
             {
                 _currentLineWidth = 0;
             }

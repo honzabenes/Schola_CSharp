@@ -36,7 +36,7 @@ namespace TokenProcessingFramework
             // Tokenize if we ended at the end of input
             if (peekChar == -1)
             {
-                return new Token(TypeToken.EoI);
+                return new Token(TokenType.EoI);
             }
 
             char currentChar = (char)peekChar;
@@ -45,7 +45,7 @@ namespace TokenProcessingFramework
             if (currentChar == '\n')
             {
                 _reader.Read();
-                return new Token(TypeToken.EoL);
+                return new Token(TokenType.EoL);
             }
 
             // Read and tokenize word if we ended at non-white character

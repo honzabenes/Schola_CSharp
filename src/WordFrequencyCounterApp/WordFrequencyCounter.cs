@@ -11,7 +11,7 @@ namespace WordFrequencyCounterApp
 
         public void ProcessToken(Token token)
         {
-            if (token.Type == TypeToken.Word)
+            if (token.Type == TokenType.Word)
             {
                 ProcessWordToken(token);
             }
