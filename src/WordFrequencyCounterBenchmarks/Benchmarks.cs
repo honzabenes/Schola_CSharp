@@ -8,26 +8,26 @@ namespace WordFrequencyCounterBenchmarks
     {
         public static void Main(string[] args)
         {
-            //BenchmarkRunner.Run<IncrementNewWordInDictionary>();
-            BenchmarkRunner.Run<IncrementExistingWordInDictionary>();
+            BenchmarkRunner.Run<IncrementCountInDictionary_WordNotFound>();
+            BenchmarkRunner.Run<IncrementValueInDictionary_WordFound>();
         }
     }
 
 
-    public class IncrementNewWordInDictionary
+    public class IncrementCountInDictionary_WordNotFound
     {
         private IDictionary<string, int> _wordFrequencies = new Dictionary<string, int>();
         private string[] _words;
+        private int _wordIndex;
 
-        [Params(10_000, 100_000)]
-        public int NumberOfWords;
+        private const int _operationsPerIteration = 100_000;
 
         [GlobalSetup]
         public void GlobalSetup()
         {
-            _words = new string[NumberOfWords];
+            _words = new string[_operationsPerIteration];
 
-            for (int i = 0; i < NumberOfWords; i++)
+            for (int i = 0; i < _operationsPerIteration; i++)
             {
                 _words[i] = "word" + i;
             }
@@ -37,14 +37,17 @@ namespace WordFrequencyCounterBenchmarks
         public void IterationSetup()
         {
             _wordFrequencies.Clear();
+            _wordIndex = 0;
         }
 
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = _operationsPerIteration)]
         public void IncrementWordCount_V1()
         {
-            foreach (string word in _words)
+            for (int i = 0; i < _operationsPerIteration; i++)
             {
+                string word = _words[_wordIndex++];
+
                 try
                 {
                     _wordFrequencies[word]++;
@@ -57,11 +60,13 @@ namespace WordFrequencyCounterBenchmarks
         }
 
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = _operationsPerIteration)]
         public void IncrementWordCount_V2()
         {
-            foreach (string word in _words)
+            for (int i = 0; i < _operationsPerIteration; i++)
             {
+                string word = _words[_wordIndex++];
+
                 if (_wordFrequencies.ContainsKey(word))
                 {
                     _wordFrequencies[word]++;
@@ -74,11 +79,13 @@ namespace WordFrequencyCounterBenchmarks
         }
 
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = _operationsPerIteration)]
         public void IncrementWordCount_V3()
         {
-            foreach (string word in _words)
+            for (int i = 0; i < _operationsPerIteration; i++)
             {
+                string word = _words[_wordIndex++];
+
                 _ = _wordFrequencies.TryGetValue(word, out int value);     // If not found, value == default(int) == 0
                 value++;
                 _wordFrequencies[word] = value;
@@ -87,10 +94,10 @@ namespace WordFrequencyCounterBenchmarks
     }
 
 
-    public class IncrementExistingWordInDictionary
+    public class IncrementValueInDictionary_WordFound
     {
         private IDictionary<string, int> _wordFrequencies = new Dictionary<string, int>();
-        private string word = "benchmark";
+        private string word = "test";
 
         [Benchmark]
         public void IncrementWordCount_V1()
