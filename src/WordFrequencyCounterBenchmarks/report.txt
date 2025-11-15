@@ -1,0 +1,41 @@
+Výsledky
+========
+
+IncrementCountInDictionary_WordNotFound-report.md
+
+| Method                | Mean        | Error      | StdDev      | Median      |
+|---------------------- |------------:|-----------:|------------:|------------:|
+| IncrementWordCount_V1 | 4,587.47 ns | 404.042 ns | 1,165.75 ns | 4,197.12 ns |
+| IncrementWordCount_V2 |    63.95 ns |   5.524 ns |    15.94 ns |    58.30 ns |
+| IncrementWordCount_V3 |    78.36 ns |   8.888 ns |    25.21 ns |    74.21 ns |
+
+
+IncrementCountInDictionary_WordFound-report.md
+
+| Method                | Mean     | Error    | StdDev   | Median   |
+|---------------------- |---------:|---------:|---------:|---------:|
+| IncrementWordCount_V1 | 32.02 ns | 2.253 ns | 6.536 ns | 29.43 ns |
+| IncrementWordCount_V2 | 46.89 ns | 2.696 ns | 7.906 ns | 44.64 ns |
+| IncrementWordCount_V3 | 32.67 ns | 1.893 ns | 5.431 ns | 31.38 ns |
+
+
+Interpretace výsledkù
+=====================
+
+1) WordNotFound
+
+	Výsledky benchmarku tohoto pøípadu mì nepøekvapily. Pouze potvrdily, že výjimky jsou velmi pomalé.
+	Oproti ostatním dvìma variantám nìco jako 70x pomalejší. Co se týèe V2 a V3 vyšly výsledky V2 o pár 
+	procent lepší, ale není mezi nimi pøíliš velký rozdíl.
+
+2) WordFound
+	
+	Tyto výsledky mì zprva pøekvapily. V2 vyšla o cca 50% pomalejší než ostatní dvì varianty. Po zamyšlení
+	mi to ale dává smysl. Ve V2 totiž vždy provádíme volání Contains na slovník a to i v pøípadì, že se slovo
+	ve slovníku nachází.
+
+
+Shrnutí
+=======
+
+Z výsledkù se nám potvrdilo, že bychom 
