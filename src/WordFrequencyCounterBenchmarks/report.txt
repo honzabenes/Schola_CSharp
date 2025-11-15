@@ -38,4 +38,11 @@ Interpretace výsledkù
 Shrnutí
 =======
 
-Z výsledkù se nám potvrdilo, že bychom 
+Z výsledkù se mi potvrdilo, že bych rozhodnì nemìl používat try/catch blok. Zbývá se rozhodnout mezi V2 pomocí
+Contains a V3 pomocí TryGetValue. V pøípadì, že bychom procesovali text, který obsahuje pøevážnì unikátní slova,
+zdálo by se lepší použít metodu V2. Pøepokládal bych ale, že budeme zpracovávat text bìžného jazyka a v nìm
+pravdìpodobnìji bude více opakujících se slov, než slov unikátních.
+
+Zde jsem si svou úvahu potvrdil: https://chatgpt.com/share/6918e84d-74e8-800d-848d-d0c111903d02
+
+Zvolím proto pro implementaci zaznamenávání frekvence slov pomocí slovníku variantu V3 s TryGetValue.
