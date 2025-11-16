@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FileProcessingConsoleAppFramework\FileProcessingConsoleAppFramework.csproj" />
-    <ProjectReference Include="..\TokenProcessingFramework\TokenProcessingFramework.csproj" />
+    <ProjectReference Include="..\Frameworks\FileProcessingConsoleAppFramework\FileProcessingConsoleAppFramework.csproj" />
+    <ProjectReference Include="..\Frameworks\TokenProcessingFramework\TokenProcessingFramework.csproj" />
   </ItemGroup>
 
 </Project>
