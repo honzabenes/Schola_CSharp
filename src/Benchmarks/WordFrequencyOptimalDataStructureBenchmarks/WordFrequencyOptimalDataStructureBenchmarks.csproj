@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frameworks\FileProcessingConsoleAppFramework\FileProcessingConsoleAppFramework.csproj" />
-    <ProjectReference Include="..\..\Frameworks\TokenProcessingFramework\TokenProcessingFramework.csproj" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.6" />
   </ItemGroup>
 
 </Project>

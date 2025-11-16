@@ -13,40 +13,40 @@ using BenchmarkDotNet.Running;
 
 namespace DictionaryBenchmarks
 {
-    public class Program
+    internal class Program
     {
         public static void Main(string[] args)
         {
-            BenchmarkRunner.Run<IncrementCountInDictionary_WordNotFound>();
-            BenchmarkRunner.Run<IncrementCountInDictionary_WordFound>();
+            BenchmarkRunner.Run<IncrementValueInDictionary_KeyNotFound>();
+            BenchmarkRunner.Run<IncrementValueInDictionary_KeyFound>();
         }
     }
 
 
-    public class IncrementCountInDictionary_WordNotFound
+    public class IncrementValueInDictionary_KeyNotFound
     {
-        private IDictionary<string, int> _wordFrequencies = new Dictionary<string, int>();
-        private string[] _words;
-        private int _wordIndex;
+        private Dictionary<string, int> _dictionary = new Dictionary<string, int>();
+        private string[] _keys;
+        private int _keyIndex;
 
         private const int _operationsPerIteration = 100_000;
 
         [GlobalSetup]
         public void GlobalSetup()
         {
-            _words = new string[_operationsPerIteration];
+            _keys = new string[_operationsPerIteration];
 
             for (int i = 0; i < _operationsPerIteration; i++)
             {
-                _words[i] = "word" + i;
+                _keys[i] = "key" + i;
             }
         }
 
         [IterationSetup]
         public void IterationSetup()
         {
-            _wordFrequencies.Clear();
-            _wordIndex = 0;
+            _dictionary.Clear();
+            _keyIndex = 0;
         }
 
 
@@ -55,15 +55,15 @@ namespace DictionaryBenchmarks
         {
             for (int i = 0; i < _operationsPerIteration; i++)
             {
-                string word = _words[_wordIndex++];
+                string key = _keys[_keyIndex++];
 
                 try
                 {
-                    _wordFrequencies[word]++;
+                    _dictionary[key]++;
                 }
                 catch (KeyNotFoundException)
                 {
-                    _wordFrequencies[word] = 1;
+                    _dictionary[key] = 1;
                 }
             }
         }
@@ -74,15 +74,15 @@ namespace DictionaryBenchmarks
         {
             for (int i = 0; i < _operationsPerIteration; i++)
             {
-                string word = _words[_wordIndex++];
+                string key = _keys[_keyIndex++];
 
-                if (_wordFrequencies.ContainsKey(word))
+                if (_dictionary.ContainsKey(key))
                 {
-                    _wordFrequencies[word]++;
+                    _dictionary[key]++;
                 }
                 else
                 {
-                    _wordFrequencies[word] = 1;
+                    _dictionary[key] = 1;
                 }
             }
         }
@@ -93,31 +93,38 @@ namespace DictionaryBenchmarks
         {
             for (int i = 0; i < _operationsPerIteration; i++)
             {
-                string word = _words[_wordIndex++];
+                string key = _keys[_keyIndex++];
 
-                _ = _wordFrequencies.TryGetValue(word, out int value);     // If not found, value == default(int) == 0
+                _ = _dictionary.TryGetValue(key, out int value);    // If not found, value == default(int) == 0
                 value++;
-                _wordFrequencies[word] = value;
+                _dictionary[key] = value;
             }
         }
     }
 
 
-    public class IncrementCountInDictionary_WordFound
+    public class IncrementValueInDictionary_KeyFound
     {
-        private IDictionary<string, int> _wordFrequencies = new Dictionary<string, int>();
-        private string word = "test";
+        private Dictionary<string, int> _dictionary= new Dictionary<string, int>();
+        private string key = "test";
+
+        [GlobalSetup]
+        public void GlobalSetup()
+        {
+            _dictionary.Add(key, 1);
+        }
+
 
         [Benchmark]
         public void IncrementWordCount_V1()
         {
             try
             {
-                _wordFrequencies[word]++;
+                _dictionary[key]++;
             }
             catch (KeyNotFoundException)
             {
-                _wordFrequencies[word] = 1;
+                _dictionary[key] = 1;
             }
         }
 
@@ -125,13 +132,13 @@ namespace DictionaryBenchmarks
         [Benchmark]
         public void IncrementWordCount_V2()
         {
-            if (_wordFrequencies.ContainsKey(word))
+            if (_dictionary.ContainsKey(key))
             {
-                _wordFrequencies[word]++;
+                _dictionary[key]++;
             }
             else
             {
-                _wordFrequencies[word] = 1;
+                _dictionary[key] = 1;
             }
         }
 
@@ -139,9 +146,9 @@ namespace DictionaryBenchmarks
         [Benchmark]
         public void IncrementWordCount_V3()
         {
-            _ = _wordFrequencies.TryGetValue(word, out int value);     // If not found, value == default(int) == 0
+            _ = _dictionary.TryGetValue(key, out int value);
             value++;
-            _wordFrequencies[word] = value;
+            _dictionary[key] = value;
         }
     }
 }

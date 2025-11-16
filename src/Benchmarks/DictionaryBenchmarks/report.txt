@@ -1,7 +1,7 @@
 Výsledky
 ========
 
-IncrementCountInDictionary_WordNotFound-report.md
+IncrementValueInDictionary_KeyNotFound-report.md
 
 | Method                | Mean        | Error      | StdDev      | Median      |
 |---------------------- |------------:|-----------:|------------:|------------:|
@@ -10,7 +10,7 @@ IncrementCountInDictionary_WordNotFound-report.md
 | IncrementWordCount_V3 |    78.36 ns |   8.888 ns |    25.21 ns |    74.21 ns |
 
 
-IncrementCountInDictionary_WordFound-report.md
+IncrementValueInDictionary_KeyFound-report.md
 
 | Method                | Mean     | Error    | StdDev   | Median   |
 |---------------------- |---------:|---------:|---------:|---------:|
@@ -25,7 +25,7 @@ Interpretace výsledkù
 1) WordNotFound
 
 	Výsledky benchmarku tohoto pøípadu mì nepøekvapily. Pouze potvrdily, že výjimky jsou velmi pomalé.
-	Oproti ostatním dvìma variantám nìco jako 70x pomalejší. Co se týèe V2 a V3 vyšly výsledky V2 o pár 
+	Oproti ostatním dvìma variantám zhruba 75x pomalejší. Co se týèe V2 a V3 vyšly výsledky V2 o pár 
 	procent lepší, ale není mezi nimi pøíliš velký rozdíl.
 
 2) WordFound
