@@ -33,3 +33,13 @@ ConsoleOutputBenchmark-report.md
 | PrintSortedList       | 553.4 μs | 15.70 μs | 43.76 μs | 540.2 μs |
 | PrintSortedDictionary | 639.8 μs | 15.80 μs | 45.07 μs | 626.7 μs |
 | PrintDictionary       | 498.8 μs | 15.72 μs | 45.85 μs | 481.7 μs |
+
+
+Interpretace výsledků
+=====================
+
+Jak se dalo předpokládat, režie přidávání nových výskytů slov do SortedList a SortedDictionary je mnohokrát
+pomalejší než přidávání do Dictionary. V našem případě nám stačí strukturu setřídit jen jednou a to
+těsně před výpisem. Vzhledem k tomu, že benchmark funkce, která nejprve naplní Dictionary a nakonec
+ho setřídí dává průměrně na operaci 180 ns, což je podle výsledků nejméně 10x rychlejší, než udržovat
+strukturu stále setřízenou, tak je pro nás jednoznačně lepší volbou.
