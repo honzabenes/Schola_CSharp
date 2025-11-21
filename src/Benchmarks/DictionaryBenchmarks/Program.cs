@@ -17,7 +17,7 @@ namespace DictionaryBenchmarks
     {
         public static void Main(string[] args)
         {
-            //BenchmarkRunner.Run<IncrementValueInDictionary_KeyNotFound>();
+            BenchmarkRunner.Run<IncrementValueInDictionary_KeyNotFound>();
             BenchmarkRunner.Run<IncrementValueInDictionary_KeyFound>();
         }
     }
