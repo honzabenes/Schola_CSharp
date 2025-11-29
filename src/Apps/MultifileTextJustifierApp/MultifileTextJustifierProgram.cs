@@ -1,5 +1,4 @@
 ﻿using FileProcessingConsoleAppFramework;
-using TextJustifierApp;
 using TokenProcessingFramework;
 
 namespace MultifileTextJustifierApp
@@ -41,7 +40,7 @@ namespace MultifileTextJustifierApp
 
                 var tokenPrinter = new TokenPrinter(baseReader, IOState.Writer!);
 
-                tokenPrinter.PrintAllTokens();
+                tokenPrinter.PrintAllTokens(isHighlightOptionOn);
 
                 IOState.Dispose();
             }

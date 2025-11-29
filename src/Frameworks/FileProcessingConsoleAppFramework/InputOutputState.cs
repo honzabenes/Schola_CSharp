@@ -20,7 +20,7 @@
 
         public bool IsHighlightOptionOn()
         {
-            return _args[0] == "--higlight-spaces";
+            return _args[0] == "--highlight-spaces";
         }
 
 

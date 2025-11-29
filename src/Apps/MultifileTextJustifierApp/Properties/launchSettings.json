@@ -2,7 +2,7 @@
   "profiles": {
     "MultifileTextJustifierApp": {
       "commandName": "Project",
-      "commandLineArgs": "$(SolutionDir)data\\in_01.txt\r\n$(SolutionDir)data\\in_02.txt\r\n$(SolutionDir)data\\in_03.txt\r\n$(SolutionDir)data\\output.txt\r\n30"
+      "commandLineArgs": "--highlight-spaces\r\n$(SolutionDir)data\\in_01.txt\r\n$(SolutionDir)data\\in_02.txt\r\n$(SolutionDir)data\\in_03.txt\r\n$(SolutionDir)data\\output.txt\r\n40"
     }
   }
 }
