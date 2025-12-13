@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Huffman": {
+    "HuffmanTreeApp": {
       "commandName": "Project",
       "commandLineArgs": "$(SolutionDir)data\\binary.in"
     }

@@ -1,5 +1,6 @@
 ﻿using ByteProcessingFramework;
 using FileProcessingConsoleAppFramework;
+using HuffmanTreeFramework;
 using TokenProcessingFramework;
 using WordFrequencyCounterApp;
 

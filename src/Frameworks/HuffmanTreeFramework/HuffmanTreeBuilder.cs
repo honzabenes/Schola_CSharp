@@ -1,4 +1,4 @@
-﻿namespace ByteProcessingFramework
+﻿namespace HuffmanTreeFramework
 {
     public class HuffmanTreeBuilder
     {

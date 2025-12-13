@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ByteProcessingFramework
+namespace HuffmanTreeFramework
 {
     public class Leaf : Node
     {
