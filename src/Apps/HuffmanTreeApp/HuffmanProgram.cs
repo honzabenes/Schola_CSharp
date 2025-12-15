@@ -26,12 +26,12 @@ namespace Huffman
                     IOState.CheckArgumentsCount(1);
                     IOState.OpenInputByteStream(0);
 
-                    var fileByteReader = new FileByteReader(IOState.InputByteStream!);
-                    var byteReaderToTokenReaderAdapter = new ByteReaderToTokenReaderAdapter(fileByteReader);
+                    IByteReader fileByteReader = new FileByteReader(IOState.InputByteStream!);
+                    var fileByteReaderToTokenReaderAdapter = new ByteReaderToTokenReaderAdapter(fileByteReader);
 
                     var wordFrequencyCounter = new WordFrequencyCounter();
 
-                    TokenProcessing.ProcessTokensUntilEndOfInput(byteReaderToTokenReaderAdapter, wordFrequencyCounter);
+                    TokenProcessing.ProcessTokensUntilEndOfInput(fileByteReaderToTokenReaderAdapter, wordFrequencyCounter);
 
                     var huffmanTreeBuilder = new HuffmanTreeBuilder(wordFrequencyCounter.Words);
 
