@@ -8,7 +8,7 @@ namespace ExcelFramework
         {
             int maxRow = 0;
 
-            List<CellAddress> addresses = sheet.GetAdresses();
+            List<CellAddress> addresses = sheet.Cells.Keys.ToList();
 
             foreach (CellAddress address in addresses)
             {

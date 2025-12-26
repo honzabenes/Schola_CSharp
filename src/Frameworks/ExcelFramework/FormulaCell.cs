@@ -1,6 +1,6 @@
 ﻿namespace ExcelFramework
 {
-    public class FormulaCell : Cell
+    public record FormulaCell : Cell
     {
         char Operator;
         CellAddress FirstOperand;

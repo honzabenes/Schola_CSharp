@@ -1,6 +1,6 @@
 ﻿namespace ExcelFramework
 {
-    public abstract class Cell
+    public abstract record Cell
     {
         public int? Value { get; protected set; }
         public CellState State { get; protected set; }

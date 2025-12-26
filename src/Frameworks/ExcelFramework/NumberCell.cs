@@ -1,6 +1,6 @@
 ﻿namespace ExcelFramework
 {
-    public class NumberCell : Cell
+    public record NumberCell : Cell
     {
         public NumberCell(int value) : base(value, CellState.Calculated) { }
 

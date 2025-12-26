@@ -2,19 +2,14 @@
 {
     public class Sheet
     {
-        private Dictionary<CellAddress, Cell> _cells = new Dictionary<CellAddress, Cell>();
+        public Dictionary<CellAddress, Cell> Cells { get; private set; } = new();
 
-
-        public List<CellAddress> GetAdresses()
-        {
-            return _cells.Keys.ToList();
-        }
 
         public void AddCell(CellAddress address, string content)
         {
             if (content == "[]")
             {
-                _cells[address] = new EmtpyCell();
+                Cells[address] = new EmtpyCell();
                 return;
             }
 
@@ -22,7 +17,7 @@
             {
                 if (int.TryParse(content, out int number))
                 {
-                    _cells[address] = new NumberCell(number);
+                    Cells[address] = new NumberCell(number);
                     return;
                 }
                 else
@@ -66,14 +61,14 @@
                 var op1 = new CellAddress(leftPart);
                 var op2 = new CellAddress(rightPart);
 
-                _cells[address] = new FormulaCell(@operator, op1, op2);
+                Cells[address] = new FormulaCell(@operator, op1, op2);
             }
         }
 
 
         public Cell? GetCell(CellAddress address)
         {
-            if (_cells.TryGetValue(address, out Cell cell))
+            if (Cells.TryGetValue(address, out Cell cell))
             {
                 return cell;
             }
@@ -84,7 +79,7 @@
 
         public int GetCellValue(CellAddress address)
         {
-            if (_cells.TryGetValue(address, out Cell cell))
+            if (Cells.TryGetValue(address, out Cell cell))
             {
                 return cell.GetValue(this);
             }
@@ -95,7 +90,7 @@
 
         public void CalculateAll()
         {
-            foreach (Cell cell in _cells.Values)
+            foreach (Cell cell in Cells.Values)
             {
                 cell.GetValue(this);
             }

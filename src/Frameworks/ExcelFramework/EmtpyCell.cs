@@ -1,6 +1,6 @@
 ﻿namespace ExcelFramework
 {
-    public class EmtpyCell : Cell
+    public record EmtpyCell : Cell
     {
         public EmtpyCell() : base(0, CellState.Calculated) { }
 
