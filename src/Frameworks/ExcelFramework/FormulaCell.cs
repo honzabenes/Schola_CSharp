@@ -27,49 +27,29 @@
         }
 
 
-        public override int GetValue(Sheet sheet)
+        public override EvaluationResult GetValue(Sheet sheet)
         {
             if (State == CellState.Calculated)
             {
-                return (int)Value!;
+                return new EvaluationResult((int)Value!);
             }
 
             if (State == CellState.Error)
             {
-                throw new TryingToGetValueFromErrorCellApplicationException();
+                return new EvaluationResult(ErrorMessage);
             }
 
             if (State == CellState.Calculating)
             {
-                HandleError(ErrorMessages.Cycle, new CycleDetectedApplicationException());
+                return new EvaluationResult(ErrorMessages.Cycle, this);
             }
 
             State = CellState.Calculating;
 
-            try
-            {
-                int val1 = sheet.GetCellValue(FirstOperandAddress);
-                int val2 = sheet.GetCellValue(SecondOperandAddress);
+            EvaluationResult val1 = sheet.GetCellValue(FirstOperandAddress);
+            EvaluationResult val2 = sheet.GetCellValue(SecondOperandAddress);
 
-                Value = CalculateResult(val1, val2);
-
-                State = CellState.Calculated;
-                return (int)Value!;
-            }
-            catch (CycleDetectedApplicationException)
-            {
-                HandleError(ErrorMessages.Cycle, new CycleDetectedApplicationException());
-            }
-            catch (DivideByZeroApplicationException)
-            {
-                HandleError(ErrorMessages.DivZero, new TryingToGetValueFromErrorCellApplicationException());
-            }
-            catch (TryingToGetValueFromErrorCellApplicationException)
-            {
-                HandleError(ErrorMessages.Error, new TryingToGetValueFromErrorCellApplicationException());
-            }
-
-            return 0;
+             // TODO
         }
 
         
@@ -94,11 +74,16 @@
         }
 
 
-        private void HandleError(string message, ApplicationException exceptionToThrow)
+        private EvaluationResult HandleError(EvaluationResult error)
+        {
+            // TODO
+        }
+
+        private EvaluationResult SetErrorState(string message)
         {
             ErrorMessage = message;
             State = CellState.Error;
-            throw exceptionToThrow;
+            return new EvaluationResult(message);
         }
     }
 }

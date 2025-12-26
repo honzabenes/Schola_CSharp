@@ -95,18 +95,14 @@
         }
 
 
-        public int GetCellValue(CellAddress address)
+        public EvaluationResult GetCellValue(CellAddress address)
         {
             if (Cells.TryGetValue(address, out Cell cell))
             {
-                if (cell is ErrorCell)
-                {
-                    throw new TryingToGetValueFromErrorCellApplicationException();
-                }
                 return cell.GetValue(this);
             }
 
-            return 0;
+            return new EvaluationResult(0);
         }
 
 

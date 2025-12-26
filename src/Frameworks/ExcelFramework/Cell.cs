@@ -14,6 +14,6 @@
 
         public abstract string GetOutputString();
 
-        public abstract int GetValue(Sheet sheet);
+        public abstract EvaluationResult GetValue(Sheet sheet);
     }
 }
