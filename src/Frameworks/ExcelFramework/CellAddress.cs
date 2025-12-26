@@ -21,26 +21,32 @@
         {
             string colPart = "";
             string rowPart = "";
+            bool readingColPart = true;
 
             foreach(char c in addressLabel)
             {
                 if (char.IsLetter(c))
                 {
+                    if (!readingColPart)
+                    {
+                        throw new InvalidCellAddressLabelApplicationException();
+                    }
                     colPart += c;
                 }
                 else if (char.IsDigit(c))
                 {
+                    readingColPart = false;
                     rowPart += c;
                 }
                 else
                 {
-                    throw new FormatException("Invalid address label format.");
+                    throw new InvalidCellAddressLabelApplicationException();
                 }
             }
 
             if (colPart.Length == 0 || rowPart.Length == 0)
             {
-                throw new FormatException("Invalid address label format.");
+                throw new InvalidCellAddressLabelApplicationException();
             }
 
             int colIdx = ParseColumn(colPart);

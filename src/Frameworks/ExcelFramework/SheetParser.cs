@@ -18,7 +18,8 @@ namespace ExcelFramework
                     break;
 
                 case TokenType.Word:
-                    sheet.AddCell(new CellAddress(currentCol, currentRow), token.Word);
+                    CellAddress address = new CellAddress(currentCol, currentRow);
+                    sheet.AddCell(address, token.Word);
                     currentCol++;
                     break;
 

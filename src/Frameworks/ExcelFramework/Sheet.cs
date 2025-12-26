@@ -32,7 +32,8 @@
                 }
                 else
                 {
-                    throw new FormatException("Invalid content");
+                    Cells[address] = new ErrorCell(ErrorMessages.Invval);
+                    return;
                 }
             }
 
@@ -42,13 +43,11 @@
 
                 char[] operators = { '+', '-', '*', '/' };
                 char @operator = ' ';
-                int operatorsCount = 0;
 
                 foreach (char c in formula)
                 {
                     if (operators.Contains(c))
                     {
-                        operatorsCount++;
                         @operator = c;
                     }
                 }
@@ -57,21 +56,30 @@
 
                 if (@operator == ' ')
                 {
-                    throw new FormatException("Operator not found");
+                    Cells[address] = new ErrorCell(ErrorMessages.MissOp);
+                    return;
                 }
 
                 if (operands.Length != 2)
                 {
-                    throw new FormatException("Invalid formula format.");
+                    Cells[address] = new ErrorCell(ErrorMessages.Formula);
+                    return;
                 }
 
                 string leftPart = operands[0];
                 string rightPart = operands[1];
 
-                var op1 = new CellAddress(leftPart);
-                var op2 = new CellAddress(rightPart);
-
-                Cells[address] = new FormulaCell(@operator, op1, op2);
+                try
+                {
+                    var op1 = new CellAddress(leftPart);
+                    var op2 = new CellAddress(rightPart);
+                    Cells[address] = new FormulaCell(@operator, op1, op2);
+                }
+                catch (InvalidCellAddressLabelApplicationException)
+                {
+                    Cells[address] = new ErrorCell(ErrorMessages.Formula);
+                    return;
+                }
             }
         }
 
@@ -91,6 +99,10 @@
         {
             if (Cells.TryGetValue(address, out Cell cell))
             {
+                if (cell is ErrorCell)
+                {
+                    throw new TryingToGetValueFromErrorCellApplicationException();
+                }
                 return cell.GetValue(this);
             }
 
@@ -102,7 +114,12 @@
         {
             foreach (Cell cell in Cells.Values)
             {
-                cell.GetValue(this);
+                try
+                {
+                    cell.GetValue(this);
+                }
+                catch (CycleDetectedApplicationException) { }
+                catch (TryingToGetValueFromErrorCellApplicationException) { }
             }
         }
     }

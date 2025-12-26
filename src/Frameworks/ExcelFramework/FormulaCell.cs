@@ -2,21 +2,27 @@
 {
     public record FormulaCell : Cell
     {
-        char Operator;
-        CellAddress FirstOperand;
-        CellAddress SecondOperand;
+        private string ErrorMessage = "";
+        private char Operator;
+        private CellAddress FirstOperandAddress;
+        private CellAddress SecondOperandAddress;
 
         public FormulaCell(char @operator, CellAddress firstOperand, CellAddress secondOperand)
             : base(null, CellState.Uncalculated)
         {
             Operator = @operator;
-            FirstOperand = firstOperand;
-            SecondOperand = secondOperand;
+            FirstOperandAddress = firstOperand;
+            SecondOperandAddress = secondOperand;
         }
 
 
         public override string GetOutputString()
         {
+            if (State == CellState.Error)
+            {
+                return ErrorMessage;
+            }
+
             return $"{Value}";
         }
 
@@ -25,36 +31,74 @@
         {
             if (State == CellState.Calculated)
             {
-                return (int)Value;
+                return (int)Value!;
+            }
+
+            if (State == CellState.Error)
+            {
+                throw new TryingToGetValueFromErrorCellApplicationException();
             }
 
             if (State == CellState.Calculating)
             {
-                throw new InvalidOperationException("Cycle detected.");
+                HandleError(ErrorMessages.Cycle, new CycleDetectedApplicationException());
             }
 
             State = CellState.Calculating;
 
-            int val1 = sheet.GetCellValue(FirstOperand);
-            int val2 = sheet.GetCellValue(SecondOperand);
-
-            int result = 0;
-
-            switch (Operator)
+            try
             {
-                case '+': result = val1 + val2; break;
-                case '-': result = val1 - val2; break;
-                case '*': result = val1 * val2; break;
-                case '/':
-                    if (val2 == 0) throw new DivideByZeroException("Dividing by 0.");
-                    else result = val1 / val2;
-                    break;
+                int val1 = sheet.GetCellValue(FirstOperandAddress);
+                int val2 = sheet.GetCellValue(SecondOperandAddress);
+
+                Value = CalculateResult(val1, val2);
+
+                State = CellState.Calculated;
+                return (int)Value!;
+            }
+            catch (CycleDetectedApplicationException)
+            {
+                HandleError(ErrorMessages.Cycle, new CycleDetectedApplicationException());
+            }
+            catch (DivideByZeroApplicationException)
+            {
+                HandleError(ErrorMessages.DivZero, new TryingToGetValueFromErrorCellApplicationException());
+            }
+            catch (TryingToGetValueFromErrorCellApplicationException)
+            {
+                HandleError(ErrorMessages.Error, new TryingToGetValueFromErrorCellApplicationException());
             }
 
-            Value = result;
-            State = CellState.Calculated;
+            return 0;
+        }
 
-            return result;
+        
+        private int CalculateResult(int val1, int val2)
+        {
+            switch (Operator)
+            {
+                case '+': return val1 + val2;
+                case '-': return val1 - val2;
+                case '*': return val1 * val2;
+                case '/':
+                    if (val2 == 0)
+                    {
+                        throw new DivideByZeroApplicationException();
+                    }
+                    else
+                    {
+                        return val1 / val2;
+                    }
+                default: return 0;
+            }
+        }
+
+
+        private void HandleError(string message, ApplicationException exceptionToThrow)
+        {
+            ErrorMessage = message;
+            State = CellState.Error;
+            throw exceptionToThrow;
         }
     }
 }
