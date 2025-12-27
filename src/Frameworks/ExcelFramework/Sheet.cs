@@ -1,5 +1,9 @@
 ﻿namespace ExcelFramework
 {
+    /// <summary>
+    /// Represents the sheet structure, stores cells by their coordinates and provides 
+    /// methods for adding cells and cell evalutaion.
+    /// </summary>
     public class Sheet
     {
         public Dictionary<CellAddress, Cell> Cells { get; private set; }
@@ -15,6 +19,9 @@
         }
 
 
+        /// <summary>
+        /// Serves to add cell in the sheet structure.
+        /// </summary>
         public void AddCell(CellAddress address, string content)
         {
             if (content == "[]")
@@ -51,7 +58,7 @@
             }
         }
 
-
+        
         private void AddFromulaCell(CellAddress address, string content)
         {
             string formula = content.Substring(1);
@@ -87,6 +94,8 @@
             var op1 = new CellAddress(leftPart);
             var op2 = new CellAddress(rightPart);
 
+            // This may throw InvalidCellAddressLabelApplicationException
+            // if the formula contains invalid operand address.
             Cells[address] = new FormulaCell(@operator, op1, op2);
         }
 
@@ -102,6 +111,9 @@
         }
 
 
+        /// <summary>
+        /// Serves to return 0 values when the given cell address is not within the sheet bound.
+        /// </summary>
         public EvaluationResult GetCellValue(CellAddress address)
         {
             if (Cells.TryGetValue(address, out Cell cell))
@@ -113,6 +125,9 @@
         }
 
 
+        /// <summary>
+        /// Evaluates all cells.
+        /// </summary>
         public void CalculateAll()
         {
             foreach (Cell cell in Cells.Values)

@@ -1,5 +1,9 @@
 ﻿namespace ExcelFramework
 {
+    /// <summary>
+    /// Encapsulates the result of a cell evaluation, containing either a valid value or an error message.
+    /// In case of cycle error, it also contains cycle initiator.
+    /// </summary>
     public readonly struct EvaluationResult
     {
         public bool IsSucces { get; }

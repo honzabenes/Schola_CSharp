@@ -1,5 +1,8 @@
 ﻿namespace ExcelFramework
 {
+    /// <summary>
+    /// Represents the coordinates of a cell within the sheet.
+    /// </summary>
     public struct CellAddress
     {
         public int Column { get; private set; }
@@ -17,6 +20,12 @@
         }
 
 
+        /// <summary>
+        /// Tries to parse the address label string to exact integer coordinates.
+        /// </summary>
+        /// <exception cref="InvalidCellAddressLabelApplicationException">
+        /// Thrown if the given address label string is not valid.
+        /// </exception>
         private (int colIdx, int rowIdx) Parse(string addressLabel)
         {
             string colPart = "";
@@ -56,6 +65,9 @@
         }
 
 
+        /// <summary>
+        /// Parses the column label represented as uppercase letters to integer value.
+        /// </summary>
         private int ParseColumn(string columnLabel)
         {
             int result = 0;

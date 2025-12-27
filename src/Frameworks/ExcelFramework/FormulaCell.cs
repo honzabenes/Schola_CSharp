@@ -1,5 +1,8 @@
 ﻿namespace ExcelFramework
 {
+    /// <summary>
+    /// Represents a cell in the sheet that contains a valid formula.
+    /// </summary>
     public record FormulaCell : Cell
     {
         private string ErrorMessage = "";
@@ -67,6 +70,9 @@
         }
 
         
+        /// <summary>
+        /// Calculates the mathematical formula of two valid integer values.
+        /// </summary>
         private int CalculateResult(int val1, int val2)
         {
             switch (Operator)
@@ -80,6 +86,9 @@
         }
 
 
+        /// <summary>
+        /// Handles all errors that may occur during formula evaluation.
+        /// </summary>
         private EvaluationResult HandleError(EvaluationResult error)
         {
             if (error.ErrorMessage == ErrorMessages.Cycle && error.CycleInitiatior is not null)
@@ -99,6 +108,7 @@
             SetErrorState(ErrorMessages.Error);
             return new EvaluationResult(ErrorMessages.Error);
         }
+
 
         private void SetErrorState(string message)
         {

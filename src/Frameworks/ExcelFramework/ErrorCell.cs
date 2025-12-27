@@ -1,5 +1,8 @@
 ﻿namespace ExcelFramework
 {
+    /// <summary>
+    /// Represents a cell in the sheet that can't be evaluated for some reason.
+    /// </summary>
     public record ErrorCell : Cell
     {
         public string ErrorMessage;
