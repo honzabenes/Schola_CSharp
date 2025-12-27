@@ -10,11 +10,11 @@ namespace ExcelApp
         {
             var app = new AppErrorHandler(Console.Out);
 
-            app.Execute(new Excel0ProgramCore(), args);
+            app.Execute(new ExcelProgramCore(), args);
         }
     }
 
-    public class Excel0ProgramCore : IProgramCore
+    public class ExcelProgramCore : IProgramCore
     {
         public void Run(string[] args)
         {
