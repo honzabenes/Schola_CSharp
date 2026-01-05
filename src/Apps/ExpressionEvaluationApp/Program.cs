@@ -1,4 +1,5 @@
 ﻿using ExpressionEvaluationFramework;
+using TokenProcessingFramework;
 
 namespace ExpressionEvaluationApp
 {
@@ -6,11 +7,15 @@ namespace ExpressionEvaluationApp
     {
         static void Main(string[] args)
         {
-            string expression = Console.ReadLine();
+            //string expression = Console.ReadLine();
 
             try
             {
-                ExpressionTreeNode? root = ExpressionTreeBuilder.Build(expression);
+                //ExpressionTreeNode? root = ExpressionTreeBuilder_Legacy.Build(expression);
+                ITokenReader reader = new ByCharsTokenReader(Console.In);
+                var treeBuilder = new PrefixExpressionTreeBuilder(reader);
+
+                ExpressionTreeNode root = treeBuilder.Parse();
                 int result = root.Evaluate();
 
                 Console.WriteLine(result);
