@@ -10,9 +10,9 @@ namespace ExpressionEvaluationApp
 
             try
             {
-                Node? root = ExpressionTreeBuilder.Build(expression);
+                ExpressionTreeNode? root = ExpressionTreeBuilder.Build(expression);
+                int result = root.Evaluate();
 
-                int result = ExpressionTreeEvaluator.Evaluate(root);
                 Console.WriteLine(result);
             }
             catch (FormatException)

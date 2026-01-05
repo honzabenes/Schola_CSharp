@@ -1,15 +1,15 @@
-﻿namespace ExpressionEvaluationFramework
+﻿namespace ExpressionEvaluationFramework_Legacy
 {
     public static class ExpressionTreeBuilder
     {
-        public static ExpressionTreeNode? Build(string expression)
+        public static Node? Build(string expression)
         {
             if (expression == string.Empty)
             {
                 return null;
             }
 
-            var stack = new Stack<ExpressionTreeNode>();
+            var stack = new Stack<Node>();
 
             char[] operators = { '+', '-', '*', '/', '~' };
             string[] values = expression.Split();
@@ -40,9 +40,9 @@
                             throw new FormatException();
                         }
 
-                        ExpressionTreeNode child = stack.Pop();
+                        Node child = stack.Pop();
 
-                        stack.Push(new UnaryOperatorNode('~', child));
+                        stack.Push(new OperatorNode('~', child, null));
                         continue;
                     }
 
@@ -51,10 +51,10 @@
                         throw new FormatException(); // There are less than 2 operands
                     }
 
-                    ExpressionTreeNode leftOperand = stack.Pop();
-                    ExpressionTreeNode rightOperand = stack.Pop();
+                    Node leftChild = stack.Pop();
+                    Node rightChild = stack.Pop();
 
-                    stack.Push(new BinaryOperatorNode(ch, leftOperand, rightOperand));
+                    stack.Push(new OperatorNode(ch, leftChild, rightChild));
                     continue;
                 }
 
