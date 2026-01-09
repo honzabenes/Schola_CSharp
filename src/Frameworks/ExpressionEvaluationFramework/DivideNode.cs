@@ -1,6 +1,6 @@
 ﻿namespace ExpressionEvaluationFramework
 {
-    public class DivideNode : BinaryOperatorNode
+    public sealed class DivideNode : BinaryOperatorNode
     {
         public DivideNode(ExpressionTreeNode leftOperand, ExpressionTreeNode rightOperand) : base(leftOperand, rightOperand) { }
 

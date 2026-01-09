@@ -23,7 +23,7 @@ namespace ExpressionEvaluationFramework
 
                 if (int.TryParse(content, out int num))
                 {
-                    return new NumberNode(num);
+                    return new ConstantNode(num);
                 }
 
                 if (char.TryParse(content, out char ch))

@@ -1,6 +1,6 @@
 ﻿namespace ExpressionEvaluationFramework
 {
-    public class AddNode : BinaryOperatorNode
+    public sealed class AddNode : BinaryOperatorNode
     {
         public AddNode(ExpressionTreeNode leftOperand, ExpressionTreeNode rightOperand) : base(leftOperand, rightOperand) { }
 
