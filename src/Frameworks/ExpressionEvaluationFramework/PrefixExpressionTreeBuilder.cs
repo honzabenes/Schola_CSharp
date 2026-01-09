@@ -35,7 +35,7 @@ namespace ExpressionEvaluationFramework
                         '-' => new SubstractNode(Parse(), Parse()),
                         '*' => new MultiplyNode(Parse(), Parse()),
                         '/' => new DivideNode(Parse(), Parse()),
-                        _ => throw new FormatException()
+                        _ => throw new NotSupportedException()
                     };
                 }
             }
